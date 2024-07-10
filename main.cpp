@@ -1,12 +1,12 @@
-#include "relu_obj.h"
+#include "relu.h"
+
 
 int main() {
-    int args[] = {10, 20};
-    int input[] = {30, 40};
-    int output[] = {50, 60};
+    int values[] = {5, -3, 8, -1, 0, 7};
+    int size = sizeof(values);
 
-    ReluObject relu(args, input, output, 2, 2, 2);
-    relu.print();
+    ReLU relu(size);
+    relu.print(); 
 
     return 0;
 }
