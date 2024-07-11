@@ -34,6 +34,6 @@ if __name__ == "__main__":
     size = len(values)
 
     relu = ReLU(size)
-    # relu.print()
+    relu.print()
 
     print(relu)
