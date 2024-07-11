@@ -1,9 +1,5 @@
 from base import exp
 
-r = exp.Relu()
+r = exp.new_object(5)
 print(exp.get_opcode(r))
 print(r)
-c = exp.toClip(r)
-print(exp.get_opcode(c))
-c = exp.toClip(c)
-print(exp.get_opcode(c))

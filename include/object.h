@@ -6,8 +6,8 @@
 class Object {
 
 public:
-    int opcode = -100;
-
+    int opcode = 0;
+    
     // Constructor
     Object();
 
