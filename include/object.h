@@ -14,12 +14,10 @@ public:
     Object(int opcode);
 
     // Destructor
-    ~Object() {
-    }
+    ~Object() {}
 
     // Copy Constructor
-    Object(const Object& other) : opcode(other.opcode) {
-    }
+    Object(const Object& other);
 
     // Assignment operator (optional, for best practice)
     Object& operator=(const Object& other) {

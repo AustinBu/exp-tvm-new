@@ -1,5 +1,6 @@
 from base import exp
 
-r = exp.new_object(5)
-print(exp.get_opcode(r))
-print(r)
+r = exp.new_object_from_opcode(5)
+print(r.contents.opcode)
+exp.new_object_from_object(r)
+print(r.contents.opcode)
