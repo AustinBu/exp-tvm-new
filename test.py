@@ -4,3 +4,9 @@ r = exp.new_object_from_opcode(5)
 print(r.contents.opcode)
 exp.new_object_from_object(r)
 print(r.contents.opcode)
+
+from base import Layer
+l = Layer()
+l.relu()
+# print(l.relu().contents.opcode)
+print(l)
