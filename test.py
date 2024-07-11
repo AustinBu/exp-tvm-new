@@ -1,9 +1,9 @@
-from base import layer
+from base import exp
 
-r = layer.Relu()
-print(layer.get_opcode(r))
+r = exp.Relu()
+print(exp.get_opcode(r))
 print(r)
-c = layer.toClip(r)
-print(layer.get_opcode(c))
-c = layer.toClip(c)
-print(layer.get_opcode(c))
+c = exp.toClip(r)
+print(exp.get_opcode(c))
+c = exp.toClip(c)
+print(exp.get_opcode(c))
