@@ -3,15 +3,34 @@
 
 ClipObject::ClipObject() {}
 
-ClipObject::ClipObject(Object source)
-    : Object(6) {
-    if (source.opcode == 5) {
+ClipObject::ClipObject(const Object& source)
+    : Object(6)
+{
+    if (source.opcode == 5)
+    {
         max = INT_MAX;
         min = 0;
     }
 }
 
-extern "C" {
-    ClipObject* Clip() { return new ClipObject(); }
-    ClipObject* toClip(Object source) { return new ClipObject(source); }
+ClipObject::ClipObject(const ClipObject& source)
+    : Object(6)
+{
+    if (source.opcode == 5)
+    {
+        max = INT_MAX;
+        min = 0;
+    }
+}
+
+extern "C"
+{
+    ClipObject *Clip() { return new ClipObject(); }
+    Object *toClip(Object source)
+    {
+        // std::cout << source.opcode << std::endl;
+        auto* res =  new ClipObject(source);
+        // std::cout << res->opcode << std::endl;
+        return res;
+    }
 }

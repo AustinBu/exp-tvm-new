@@ -9,7 +9,8 @@ public:
 
     // Constructor
     ClipObject();
-    ClipObject(Object source);
+    ClipObject(const Object &source);
+    ClipObject(const ClipObject &source);
     ClipObject(Object input, Object output, int min, int max);
 
     Object input;

@@ -12,6 +12,9 @@ public:
 
     Object input;
     Object output;
+    int get_output() {
+        return 1;
+    }
     
 };
 
