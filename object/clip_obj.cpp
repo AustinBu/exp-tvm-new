@@ -26,11 +26,11 @@ ClipObject::ClipObject(const ClipObject& source)
 extern "C"
 {
     ClipObject *Clip() { return new ClipObject(); }
-    Object *toClip(ClipObject source)
+    Object *toClip(Object source)
     {
-        std::cout << source.opcode << std::endl;
+        // std::cout << source.opcode << std::endl;
         auto* res =  new ClipObject(source);
-        std::cout << res->opcode << std::endl;
+        // std::cout << res->opcode << std::endl;
         return res;
     }
 }
