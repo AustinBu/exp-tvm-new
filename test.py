@@ -1,12 +1,13 @@
 from base import exp
-
-r = exp.new_object_from_opcode(5)
-print(r.contents.opcode)
-exp.new_object_from_object(r)
-print(r.contents.opcode)
-
 from base import Layer
+
 l = Layer()
-l.relu()
-# print(l.relu().contents.opcode)
+r = l.relu()
 print(l)
+
+c = exp.new_node_from_opcode(6)
+print(c.contents.opcode)
+
+e = exp.new_edge(r, c)
+print(e.contents.start.contents.opcode)
+print(e.contents.end.contents.opcode)

@@ -1,26 +1,24 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef NODE_H
+#define NODE_H
 
 #include <iostream>
 
-class Object {
+class Node {
 
 public:
-    int opcode = 0;
-    
     // Constructor
-    Object();
+    Node();
 
-    Object(int opcode);
+    Node(int opcode);
 
     // Destructor
-    ~Object() {}
+    ~Node() {}
 
     // Copy Constructor
-    Object(const Object& other);
+    Node(const Node& other);
 
     // Assignment operator (optional, for best practice)
-    Object& operator=(const Object& other) {
+    Node& operator=(const Node& other) {
         if (this == &other) {
             return *this;
         }
@@ -29,6 +27,11 @@ public:
         return *this;
     }
 
+    int getOpcode() const;
+    void setOpcode(int opcode);
+
+private:
+    int opcode = 0;
 };
 
-#endif // OBJECT_H
+#endif // Node_H
