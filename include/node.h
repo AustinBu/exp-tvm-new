@@ -2,6 +2,7 @@
 #define NODE_H
 
 #include <iostream>
+#include "../include/attrs.h"
 
 class Node {
 
@@ -16,6 +17,8 @@ public:
 
     // Copy Constructor
     Node(const Node& other);
+
+    Node(int opcode, Attrs* attrs);
 
     // Assignment operator (optional, for best practice)
     Node& operator=(const Node& other) {
@@ -40,6 +43,7 @@ private:
     static int nextId;
     int id;
     int opcode;
+    Attrs* attrs;
 
     static int generateId();
 };

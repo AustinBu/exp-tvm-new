@@ -1,4 +1,5 @@
 #include "../include/node.h"
+#include "../include/attrs.h"
 
 int Node::nextId = 1;
 
@@ -15,6 +16,9 @@ Node::Node(const Node& source) : id(source.id), opcode(0)
 }
 
 int Node::getId() const { return id; }
+
+Node::Node(int opcode, Attrs* attrs)
+    : opcode(opcode), attrs(attrs) {}
 
 int Node::getOpcode() const { return opcode; }
 
@@ -38,4 +42,6 @@ extern "C" {
     int get_id(Node* obj) { return obj->getId(); }
 
     int get_opcode(Node* obj) { return obj->getOpcode(); }
+
+    Node* new_node_from_all(int opcode, Attrs* attrs) { return new Node(opcode, attrs); }
 }
