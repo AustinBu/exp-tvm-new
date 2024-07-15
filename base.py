@@ -3,11 +3,16 @@ from ctypes import *
 exp = cdll.LoadLibrary('./exp.so')
 
 class Node(Structure):
-    _fields_ = [("opcode", c_int)]
+    _fields_ = [("id", c_int),
+                ("opcode", c_int)]
 
 class Edge(Structure):
     _fields_ = [("start", POINTER(Node)),
                 ("end", POINTER(Node))]
+    
+# class Graph(Structure): 
+#     _fields_ = []
+   
 
 class Layer:
     def __init__(self):
@@ -34,3 +39,6 @@ exp.new_edge.restype = POINTER(Edge)
 
 exp.get_opcode.argtypes = [POINTER(Node)]
 exp.get_opcode.restype = c_int
+
+exp.new_graph.restype = POINTER(Graph)
+exp.add_edge.argtypes = [POINTER(Graph), POINTER(Edge)]

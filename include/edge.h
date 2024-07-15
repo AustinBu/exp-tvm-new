@@ -9,6 +9,10 @@ public:
     Edge();
 
     Edge(Node* start, Node* end);
+    
+    Node* getStart() const;
+    
+    Node* getEnd() const;
 
 private:
     Node* start;

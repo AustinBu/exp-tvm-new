@@ -1,12 +1,12 @@
 #include "../include/node.h"
 
-Node::Node() {}
+int Node::nextId = 1;
 
-Node::Node(int opcode)
-    : opcode(opcode) {}
+Node::Node() : id(generateId()) {}
 
-Node::Node(const Node& source)
-    : opcode(0)
+Node::Node(int opcode) : id(generateId()), opcode(opcode) {}
+
+Node::Node(const Node& source) : id(source.id), opcode(0)
 {
     if (source.opcode == 5)
     {
@@ -14,10 +14,16 @@ Node::Node(const Node& source)
     }
 }
 
+int Node::getId() const { return id; }
+
 int Node::getOpcode() const { return opcode; }
 
 void Node::setOpcode(int newOpcode) {
     opcode = newOpcode;
+}
+
+int Node::generateId() {
+    return nextId++;
 }
 
 extern "C" {
@@ -28,6 +34,8 @@ extern "C" {
             source->setOpcode(6);
         }
     }
+
+    int get_id(Node* obj) { return obj->getId(); }
 
     int get_opcode(Node* obj) { return obj->getOpcode(); }
 }

@@ -27,11 +27,30 @@ public:
         return *this;
     }
 
+    int getId() const;
+
     int getOpcode() const;
     void setOpcode(int opcode);
 
+    bool operator==(const Node& other) const {
+        return id == other.id;
+    }
+
 private:
-    int opcode = 0;
+    static int nextId;
+    int id;
+    int opcode;
+
+    static int generateId();
 };
+
+namespace std {
+    template <>
+    struct hash<Node> {
+        std::size_t operator()(const Node& node) const {
+            return std::hash<int>()(node.getId());
+        }
+    };
+}
 
 #endif // Node_H
