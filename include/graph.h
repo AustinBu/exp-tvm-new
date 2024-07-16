@@ -14,6 +14,8 @@ public:
 
     std::unordered_map<Node, std::vector<Node> >& getAdjList();
 
+    void printGraph() const;
+
 private:
     std::unordered_map<Node, std::vector<Node> > adjList;
 };
