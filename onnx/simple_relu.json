@@ -1,0 +1,63 @@
+{
+    "irVersion": "10",
+    "producerName": "onnx-examples",
+    "graph": {
+        "node": [
+            {
+                "input": [
+                    "input"
+                ],
+                "output": [
+                    "output"
+                ],
+                "opType": "Relu"
+            }
+        ],
+        "name": "simple-relu-model",
+        "input": [
+            {
+                "name": "input",
+                "type": {
+                    "tensorType": {
+                        "elemType": 1,
+                        "shape": {
+                            "dim": [
+                                {
+                                    "dimValue": "1"
+                                },
+                                {
+                                    "dimValue": "3"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ],
+        "output": [
+            {
+                "name": "output",
+                "type": {
+                    "tensorType": {
+                        "elemType": 1,
+                        "shape": {
+                            "dim": [
+                                {
+                                    "dimValue": "1"
+                                },
+                                {
+                                    "dimValue": "3"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "opsetImport": [
+        {
+            "version": "21"
+        }
+    ]
+}
