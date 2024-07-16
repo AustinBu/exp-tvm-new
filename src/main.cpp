@@ -13,17 +13,17 @@ int main() {
     std::cout << node1->getOpcode() << std::endl;
 
     // Create edges
-    Edge* edge1 = new Edge(node1, node2);
-    Edge* edge2 = new Edge(node2, node3);
-    Edge* edge3 = new Edge(node3, node4);
+    Edge edge1(node1, node2);
+    Edge edge2(node2, node3);
+    Edge edge3(node3, node4);
 
     // Create a new graph
-    Graph* graph = new Graph();
+    Graph graph;
 
     // Add edges to the graph
-    graph->addEdge(edge1);
-    // graph->addEdge(edge2);
-    // graph->addEdge(edge3);
+    graph.addEdge(&edge1);
+    graph.addEdge(&edge2);
+    graph.addEdge(&edge3);
 
     // Verify the adjacency list
     // const std::unordered_map<Node, std::vector<Node> >& adjList = graph->getAdjList();
@@ -36,17 +36,13 @@ int main() {
     //     std::cout << std::endl;
     // }
 
-    graph->printGraph();
+    graph.printGraph();
 
     // Clean up
-    delete edge1;
-    delete edge2;
-    delete edge3;
     delete node1;
     delete node2;
     delete node3;
     delete node4;
-    delete graph;
 
     return 0;
 }

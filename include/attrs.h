@@ -25,4 +25,4 @@ private:
     int outsize;
 };
 
-#endif // EDGE_H
+#endif // ATTRS_H
