@@ -2,7 +2,7 @@
 #define NODE_H
 
 #include <iostream>
-#include "../include/attrs.h"
+#include "attrs.h"
 
 class Node {
 

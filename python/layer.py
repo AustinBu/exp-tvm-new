@@ -1,5 +1,6 @@
 from . import base
 from . import namemap
+from ctypes import *
 
 exp = base.exp
 map = namemap.map
@@ -11,7 +12,7 @@ class Layer:
     def __str__(self):
         s = "Layers["
         for l in self.layers:
-            if l.contents.opcode == 5:
+            if l.opcode == 5:
                 s += "Relu()"
         s += "]"
         return s
@@ -29,4 +30,15 @@ class Layer:
     
     def get_edge(self, edge):
         return map[edge.contents.start.contents.opcode], map[edge.contents.end.contents.opcode]
+    
+    def new_attrs(self, inputdtype, outputdtype, inshape, outshape):
+        return exp.new_attrs(inputdtype, 
+                            outputdtype,
+                            inshape.ctypes.data_as(POINTER(c_int)),
+                            len(inshape),
+                            outshape.ctypes.data_as(POINTER(c_int)),
+                            len(outshape))
+    
+    def new_node_all(self, opcode, attrs):
+        return exp.new_node_from_all(opcode, attrs)
 
