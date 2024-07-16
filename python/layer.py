@@ -1,9 +1,9 @@
 from . import base
-from . import namemap
+from . import opmap
 from ctypes import *
 
 exp = base.exp
-map = namemap.map
+map = opmap.opmap
 
 class Layer:
     def __init__(self):
@@ -12,8 +12,11 @@ class Layer:
     def __str__(self):
         s = "Layers["
         for l in self.layers:
-            if l.opcode == 5:
-                s += "Relu()"
+            # breakpoint()
+            if l.contents.opcode == 5:
+                s += "Relu(), "
+            elif l.contents.opcode == 1:
+                s += "Conv(), "
         s += "]"
         return s
 

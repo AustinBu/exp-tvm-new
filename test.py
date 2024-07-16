@@ -7,7 +7,7 @@ r = l.relu()
 print(l)
 
 c = l.new_node(6)
-print(c.opcode)
+print(c.contents.opcode)
 
 e = l.new_edge(r, c)
 print(l.get_edge(e))
