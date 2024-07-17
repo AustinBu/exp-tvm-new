@@ -36,11 +36,11 @@ class Layer:
     
     def new_attrs(self, name, type, ints):
         return exp.new_attrs_ints(
-                            byref(c_char_p(name.encode('utf-8'))), 
+                            create_string_buffer(name), 
                             type,
                             ints.ctypes.data_as(POINTER(c_int)),
                             len(ints))
     
-    def new_node_all(self, opcode, attrs):
-        return exp.new_node_from_all(opcode, attrs)
+    def new_node_all(self, opcode, attrs, attrsize):
+        return exp.new_node_from_all(opcode, attrs, attrsize)
 

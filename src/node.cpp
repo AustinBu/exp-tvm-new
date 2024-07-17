@@ -1,5 +1,6 @@
 #include "../include/node.h"
 #include "../include/attrs.h"
+#include <iostream>
 
 int Node::nextId = 1;
 
@@ -17,8 +18,8 @@ Node::Node(const Node& source) : id(source.id), opcode(0)
 
 int Node::getId() const { return id; }
 
-Node::Node(int opcode, Attrs* attrs)
-    : opcode(opcode), attrs(attrs) {}
+Node::Node(int opcode, Attrs* in_attrs, int attrsize)
+    : opcode(opcode), attrs(in_attrs), attrsize(attrsize) {}
 
 int Node::getOpcode() const { return opcode; }
 
@@ -43,5 +44,14 @@ extern "C" {
 
     int get_opcode(Node* obj) { return obj->getOpcode(); }
 
-    Node* new_node_from_all(int opcode, Attrs* attrs) { return new Node(opcode, attrs); }
+    Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize) 
+        { return new Node(opcode, attrs, attrsize); }
+
+    void print_attr_list(Attrs* attrs, int attrsize) {
+        std::cout << "Size of Person struct in C++: " << sizeof(Attrs) << std::endl;
+        for (int i = 0; i < attrsize; i++) {
+            std::cout << i << std::endl;
+            std::cout << attrs[i].getName() << std::endl;
+        }
+    }
 }

@@ -13,12 +13,13 @@ public:
     Node(int opcode);
 
     // Destructor
-    ~Node() {}
+    ~Node() {
+    }
 
     // Copy Constructor
     Node(const Node& other);
 
-    Node(int opcode, Attrs* attrs);
+    Node(int opcode, Attrs* attrs, int attrsize);
 
     // Assignment operator (optional, for best practice)
     Node& operator=(const Node& other) {
@@ -44,6 +45,7 @@ private:
     int id;
     int opcode;
     Attrs* attrs;
+    int attrsize;
 
     static int generateId();
 };

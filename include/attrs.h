@@ -14,23 +14,25 @@ class Attrs {
 public:
     Attrs();
 
-    Attrs(char** name, int type, int* ints, int intssize);
+    Attrs(const char* name, int type, int* ints, int intssize);
 
     Attrs(char** name, int type, int i);
 
     ~Attrs() {
-        delete name;
+        delete[] name; // Free the copied string
+        delete[] ints; // Free the integer array
     }
 
-    char* getName() {
+    const char* getName() const {
         return name;
     }
 
 private:
-    char* name;
+    const char* name;
     TYPE type;
-    std::vector<int> ints;
-    int i;
+    int* ints;
+    int intssize;
+    int i=0;
 };
 
 #endif // ATTRS_H
