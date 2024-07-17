@@ -34,13 +34,12 @@ class Layer:
     def get_edge(self, edge):
         return map[edge.contents.start.contents.opcode], map[edge.contents.end.contents.opcode]
     
-    def new_attrs(self, inputdtype, outputdtype, inshape, outshape):
-        return exp.new_attrs(inputdtype, 
-                            outputdtype,
-                            inshape.ctypes.data_as(POINTER(c_int)),
-                            len(inshape),
-                            outshape.ctypes.data_as(POINTER(c_int)),
-                            len(outshape))
+    def new_attrs(self, name, type, ints):
+        return exp.new_attrs_ints(
+                            byref(c_char_p(name.encode('utf-8'))), 
+                            type,
+                            ints.ctypes.data_as(POINTER(c_int)),
+                            len(ints))
     
     def new_node_all(self, opcode, attrs):
         return exp.new_node_from_all(opcode, attrs)

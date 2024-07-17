@@ -2,10 +2,18 @@
 
 Attrs::Attrs() {}
 
-Attrs::Attrs(int indtype, int outdtype, int* inshape, int insize, int* outshape, int outsize)
-    : inputdtype(TYPE(indtype)), outputdtype(TYPE(outdtype)), inshape(inshape), insize(insize), outshape(outshape), outsize(outsize) {}
+Attrs::Attrs(char** name, int type, int* in_ints, int intssize)
+    : name(*name), type(TYPE(type)) {
+        ints = std::vector<int>(in_ints, in_ints + intssize);
+    }
+
+Attrs::Attrs(char** name, int type, int i)
+    : name(*name), type(TYPE(type)), i(i) {}
 
 extern "C" {
-    Attrs* new_attrs(int indtype, int outdtype, int* inshape, int insize, int* outshape, int outsize) 
-    { return new Attrs(indtype, outdtype, inshape, insize, outshape, outsize); }
+    Attrs* new_attrs_ints(char** name, int type, int* ints, int intssize)
+    { return new Attrs(name, type, ints, intssize); }
+
+    Attrs* new_attrs_i(char** name, int type, int i)
+    { return new Attrs(name, type, i); }
 }

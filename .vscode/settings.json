@@ -83,7 +83,9 @@
         "stop_token": "cpp",
         "text_encoding": "cpp",
         "thread": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "__bits": "cpp",
+        "__verbose_abort": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

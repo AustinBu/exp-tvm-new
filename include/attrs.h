@@ -14,15 +14,23 @@ class Attrs {
 public:
     Attrs();
 
-    Attrs(int indtype, int outdtype, int* inshape, int insize, int* outshape, int outsize);
+    Attrs(char** name, int type, int* ints, int intssize);
+
+    Attrs(char** name, int type, int i);
+
+    ~Attrs() {
+        delete name;
+    }
+
+    char* getName() {
+        return name;
+    }
 
 private:
-    TYPE inputdtype;
-    TYPE outputdtype;
-    int* inshape;
-    int insize;
-    int* outshape;
-    int outsize;
+    char* name;
+    TYPE type;
+    std::vector<int> ints;
+    int i;
 };
 
 #endif // ATTRS_H

@@ -3,12 +3,10 @@ from ctypes import *
 exp = cdll.LoadLibrary('./exp.so')
     
 class Attrs(Structure):
-    _fields_ = [("inputdtype", c_int),
-                ("outputdtype", c_int),
-                ("inshape", POINTER(c_int)),
-                ("insize", c_int),
-                ("outshape", POINTER(c_int)),
-                ("outsize", c_int)]
+    _fields_ = [("name", c_char_p),
+                ("type", c_int),
+                ("ints", POINTER(c_int)),
+                ("i", c_int)]
     
 class Node(Structure):
     _fields_ = [("id", c_int),
@@ -31,5 +29,5 @@ exp.new_edge.restype = POINTER(Edge)
 exp.get_opcode.argtypes = [POINTER(Node)]
 exp.get_opcode.restype = c_int
 
-exp.new_attrs.argtypes = [c_int, c_int, POINTER(c_int), c_int, POINTER(c_int), c_int]
-exp.new_attrs.restype = POINTER(Attrs)
+exp.new_attrs_ints.argtypes = [POINTER(c_char_p), c_int, POINTER(c_int), c_int]
+exp.new_attrs_ints.restype = POINTER(Attrs)
