@@ -16,9 +16,7 @@ Node::Node(const Node& source) : id(source.id), opcode(0)
     }
 }
 
-Node::~Node() {
-    delete[] attrs;
-}
+Node::~Node() {}
 
 int Node::getId() const { return id; }
 
