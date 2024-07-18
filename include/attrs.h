@@ -16,23 +16,26 @@ public:
 
     Attrs(const char* name, int type, int* ints, int intssize);
 
-    Attrs(char** name, int type, int i);
+    Attrs(const char* name, int type, int i);
 
-    ~Attrs() {
-        delete[] name; // Free the copied string
-        delete[] ints; // Free the integer array
-    }
+    ~Attrs();
 
-    const char* getName() const {
-        return name;
-    }
+    const char* getName() const;
 
 private:
     const char* name;
     TYPE type;
     int* ints;
     int intssize;
-    int i=0;
+    int i;
 };
+
+extern "C" {
+    Attrs* new_attrs_ints(const char* name, int type, int* ints, int intssize);
+
+    Attrs* new_attrs_i(const char* name, int type, int i);
+
+    void del_attrs(Attrs* attrs);
+}
 
 #endif // ATTRS_H

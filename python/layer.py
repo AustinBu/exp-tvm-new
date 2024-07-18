@@ -43,4 +43,13 @@ class Layer:
     
     def new_node_all(self, opcode, attrs, attrsize):
         return exp.new_node_from_all(opcode, attrs, attrsize)
+    
+    def del_attrs(self, attrs):
+        exp.del_attrs(attrs)
+
+    def del_node(self, node):
+        exp.del_node(node)
+
+    def del_edge(self, edge):
+        exp.del_edge(edge)
 

@@ -34,4 +34,6 @@ exp.get_opcode.restype = c_int
 exp.new_attrs_ints.argtypes = [c_char_p, c_int, POINTER(c_int), c_int]
 exp.new_attrs_ints.restype = POINTER(Attrs)
 
-exp.print_attr_list.argtypes = [POINTER(Attrs), c_int]
+exp.del_attrs.argtypes = [POINTER(Attrs)]
+exp.del_node.argtypes = [POINTER(Node)]
+exp.del_edge.argtypes = [POINTER(Edge)]

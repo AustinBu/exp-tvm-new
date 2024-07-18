@@ -14,10 +14,13 @@ print(l.get_edge(e))
 
 # array = np.array([1, 2, 3, 4, 5], dtype=np.int32)
 # a = l.new_attrs(1, 1, array, array)
-a = l.new_attrs(b"strides", 1, np.array([1, 2, 3, 4, 5], dtype=np.int32))[0]
+a = l.new_attrs(b"strides", 1, np.array([1, 2, 3, 4, 6], dtype=np.int32))[0]
 print(a.name, id(a))
+print(a.ints[4])
 b = l.new_attrs(b"padding", 1, np.array([1, 2, 3, 4, 5], dtype=np.int32))[0]
 print(b.name, id(b))
+print(a.ints[4])
+print(b.ints[4])
 
 # c = l.new_attrs("wow", 1, np.array([1, 2, 3, 4, 5], dtype=np.int32))[0]
 
@@ -35,6 +38,10 @@ attr_arr = abc(*ab)
 n = l.new_node_all(5, attr_arr, len(ab))
 print(n.contents.attrs[0].name)
 print(n.contents.attrs[1].name)
-breakpoint()
+
+l.del_node(n)
+l.del_edge(e)
+l.del_node(c)
+l.del_node(r)
 # x = n.contents.attrs.contents
 # print(x.name.decode('utf-8'))

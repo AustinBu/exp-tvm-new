@@ -6,6 +6,9 @@ Edge::Edge() {}
 Edge::Edge(Node* start, Node* end)
     : start(start), end(end) {}
 
+Edge::~Edge() {}
+
+
 Node* Edge::getStart() const {
     return start;
 }
@@ -14,6 +17,10 @@ Node* Edge::getEnd() const {
     return end;
 }
 
-extern "C" {
-    Edge* new_edge(Node* start, Node* end) { return new Edge(start, end); }
+Edge* new_edge(Node* start, Node* end) { return new Edge(start, end); }
+
+void del_edge(Edge* edge) {
+    std::cout << "Deleting edge: " << edge << std::endl;
+    delete edge;
+    std::cout << "Delete finished" << std::endl;
 }

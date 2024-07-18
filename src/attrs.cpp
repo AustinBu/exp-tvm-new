@@ -3,17 +3,33 @@
 Attrs::Attrs() {}
 
 Attrs::Attrs(const char* name, int type, int* in_ints, int intssize)
-    : type(TYPE(type)), ints(in_ints), intssize(intssize) {
+    : type(TYPE(type)), intssize(intssize) {
+        this->name = strdup(name); // Copy the string
+        this->ints = new int[intssize];
+        std::memcpy(this->ints, in_ints, intssize * sizeof(int));
+    }
+
+Attrs::Attrs(const char* name, int type, int i)
+    : type(TYPE(type)), i(i) {
         this->name = strdup(name); // Copy the string
     }
 
-Attrs::Attrs(char** name, int type, int i)
-    : name(*name), type(TYPE(type)), i(i) {}
+Attrs::~Attrs() {
+        std::cout << "Deleting attr: " << name << std::endl;
+        delete[] name; // Free the copied string
+        delete[] ints; // Free the integer array
+    }
 
-extern "C" {
-    Attrs* new_attrs_ints(const char* name, int type, int* ints, int intssize)
-    { return new Attrs(name, type, ints, intssize); }
+const char* Attrs::getName() const {
+    return name;
+}
 
-    Attrs* new_attrs_i(char** name, int type, int i)
-    { return new Attrs(name, type, i); }
+Attrs* new_attrs_ints(const char* name, int type, int* ints, int intssize)
+{ return new Attrs(name, type, ints, intssize); }
+
+Attrs* new_attrs_i(const char* name, int type, int i)
+{ return new Attrs(name, type, i); }
+
+void del_attrs(Attrs* attrs) {
+    delete attrs;
 }

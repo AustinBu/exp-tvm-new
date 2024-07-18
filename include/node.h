@@ -13,8 +13,7 @@ public:
     Node(int opcode);
 
     // Destructor
-    ~Node() {
-    }
+    ~Node();
 
     // Copy Constructor
     Node(const Node& other);
@@ -34,6 +33,7 @@ public:
     int getId() const;
 
     int getOpcode() const;
+    
     void setOpcode(int opcode);
 
     bool operator==(const Node& other) const {
@@ -57,6 +57,22 @@ namespace std {
             return std::hash<int>()(node.getId());
         }
     };
+}
+
+extern "C" {
+    Node* new_node_from_opcode(int opcode);
+
+    void node_from_node(Node* source);
+
+    int get_id(Node* obj);
+
+    int get_opcode(Node* obj);
+
+    Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize);
+
+    void print_attr_list(Attrs* attrs, int attrsize);
+
+    void del_node(Node* node);
 }
 
 #endif // Node_H

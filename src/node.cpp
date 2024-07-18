@@ -16,10 +16,17 @@ Node::Node(const Node& source) : id(source.id), opcode(0)
     }
 }
 
+Node::~Node() {
+    delete[] attrs;
+}
+
 int Node::getId() const { return id; }
 
 Node::Node(int opcode, Attrs* in_attrs, int attrsize)
-    : opcode(opcode), attrs(in_attrs), attrsize(attrsize) {}
+    : opcode(opcode), attrs(in_attrs), attrsize(attrsize) {
+        this->attrs = new Attrs[attrsize];
+        std::memcpy(this->attrs, in_attrs, attrsize * sizeof(Attrs));
+}
 
 int Node::getOpcode() const { return opcode; }
 
@@ -31,27 +38,23 @@ int Node::generateId() {
     return nextId++;
 }
 
-extern "C" {
-    Node* new_node_from_opcode(int opcode) { return new Node(opcode); }
+Node* new_node_from_opcode(int opcode) { return new Node(opcode); }
 
-    void node_from_node(Node* source) {
-        if (source->getOpcode() == 5) {
-            source->setOpcode(6);
-        }
+void node_from_node(Node* source) {
+    if (source->getOpcode() == 5) {
+        source->setOpcode(6);
     }
+}
 
-    int get_id(Node* obj) { return obj->getId(); }
+int get_id(Node* obj) { return obj->getId(); }
 
-    int get_opcode(Node* obj) { return obj->getOpcode(); }
+int get_opcode(Node* obj) { return obj->getOpcode(); }
 
-    Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize) 
-        { return new Node(opcode, attrs, attrsize); }
+Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize) 
+    { return new Node(opcode, attrs, attrsize); }
 
-    void print_attr_list(Attrs* attrs, int attrsize) {
-        std::cout << "Size of Person struct in C++: " << sizeof(Attrs) << std::endl;
-        for (int i = 0; i < attrsize; i++) {
-            std::cout << i << std::endl;
-            std::cout << attrs[i].getName() << std::endl;
-        }
-    }
+void del_node(Node* node) {
+    std::cout << "Deleting node: " << node << std::endl;
+    delete node;
+    std::cout << "Delete finished" << std::endl;
 }
