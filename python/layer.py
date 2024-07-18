@@ -8,6 +8,8 @@ map = opmap.opmap
 class Layer:
     def __init__(self):
         self.layers = []
+        self.edges = []
+        self.attrs = []
 
     def __str__(self):
         s = "Layers["
@@ -27,22 +29,36 @@ class Layer:
     def new_node(self, opcode):
         self.layers.append(exp.new_node_from_opcode(opcode))
         return self.layers[-1]
+    
+    def new_node_from_all(self, opcode, attrs, attrsize):
+        self.layers.append(exp.new_node_from_all(opcode, attrs, attrsize))
+        return self.layers[-1]
 
     def new_edge(self, start, end):
-        return exp.new_edge(start, end)
+        self.edges.append(exp.new_edge(start, end))
+        return self.edges[-1]
     
     def get_edge(self, edge):
         return map[edge.contents.start.contents.opcode], map[edge.contents.end.contents.opcode]
     
-    def new_attrs(self, name, type, ints):
-        return exp.new_attrs_ints(
-                            create_string_buffer(name), 
-                            type,
-                            ints.ctypes.data_as(POINTER(c_int)),
-                            len(ints))
-    
-    def new_node_all(self, opcode, attrs, attrsize):
-        return exp.new_node_from_all(opcode, attrs, attrsize)
+    def new_attrs(self, name, type, ints, i=0):
+        attr = 0
+        if i != 0:
+            attr = exp.new_attrs_i(
+                create_string_buffer(name), 
+                type,
+                i
+            )
+        else:
+            attr = exp.new_attrs_ints(
+                create_string_buffer(name), 
+                type,
+                # ints.ctypes.data_as(POINTER(c_int)),
+                (c_int * len(ints))(*ints),
+                len(ints)
+            )
+        self.attrs.append(attr)
+        return attr
     
     def del_attrs(self, attrs):
         exp.del_attrs(attrs)
@@ -52,4 +68,12 @@ class Layer:
 
     def del_edge(self, edge):
         exp.del_edge(edge)
+
+    def cleanup(self):
+        for n in self.layers:
+            self.del_node(n)
+        for e in self.edges:
+            self.del_edge(e)
+        for a in self.attrs:
+            self.del_attrs(a)
 

@@ -33,6 +33,8 @@ exp.get_opcode.restype = c_int
 
 exp.new_attrs_ints.argtypes = [c_char_p, c_int, POINTER(c_int), c_int]
 exp.new_attrs_ints.restype = POINTER(Attrs)
+exp.new_attrs_i.argtypes = [c_char_p, c_int, c_int]
+exp.new_attrs_i.restype = POINTER(Attrs)
 
 exp.del_attrs.argtypes = [POINTER(Attrs)]
 exp.del_node.argtypes = [POINTER(Node)]
