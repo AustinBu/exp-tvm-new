@@ -1,8 +1,10 @@
 import json 
 
-f = open('../onnx/json/simple_cnn.json')
+f = open('./onnx/json/simple_cnn.json')
 
 data = json.load(f)
 
+nameList = []
 for node in data['graph']['node']:
-    print(node['opType'])
+    nameList.append(node['name'])
+print(nameList)

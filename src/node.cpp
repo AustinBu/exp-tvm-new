@@ -54,5 +54,4 @@ Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize)
 void del_node(Node* node) {
     std::cout << "Deleting node: " << node << std::endl;
     delete node;
-    std::cout << "Delete finished" << std::endl;
 }
