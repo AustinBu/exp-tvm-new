@@ -36,6 +36,6 @@ exp.new_attrs_ints.restype = POINTER(Attrs)
 exp.new_attrs_i.argtypes = [c_char_p, c_int, c_int]
 exp.new_attrs_i.restype = POINTER(Attrs)
 
-exp.del_attrs.argtypes = [POINTER(Attrs)]
-exp.del_node.argtypes = [POINTER(Node)]
-exp.del_edge.argtypes = [POINTER(Edge)]
+exp.del_attrs.argtypes = [c_bool, POINTER(Attrs)]
+exp.del_node.argtypes = [c_bool, POINTER(Node)]
+exp.del_edge.argtypes = [c_bool, POINTER(Edge)]

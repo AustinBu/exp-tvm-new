@@ -35,7 +35,7 @@ extern "C" {
 
     Attrs* new_attrs_i(const char* name, int type, int i);
 
-    void del_attrs(Attrs* attrs);
+    void del_attrs(bool debug, Attrs* attrs);
 }
 
 #endif // ATTRS_H

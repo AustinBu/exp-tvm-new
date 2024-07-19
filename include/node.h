@@ -70,9 +70,7 @@ extern "C" {
 
     Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize);
 
-    void print_attr_list(Attrs* attrs, int attrsize);
-
-    void del_node(Node* node);
+    void del_node(bool debug, Node* node);
 }
 
 #endif // Node_H

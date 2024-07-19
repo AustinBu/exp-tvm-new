@@ -15,7 +15,6 @@ Attrs::Attrs(const char* name, int type, int i)
     }
 
 Attrs::~Attrs() {
-        std::cout << "Deleting attr: " << name << std::endl;
         delete[] name; // Free the copied string
         delete[] ints; // Free the integer array
     }
@@ -30,6 +29,7 @@ Attrs* new_attrs_ints(const char* name, int type, int* ints, int intssize)
 Attrs* new_attrs_i(const char* name, int type, int i)
 { return new Attrs(name, type, i); }
 
-void del_attrs(Attrs* attrs) {
+void del_attrs(bool debug, Attrs* attrs) {
+    if (debug) { std::cout << "Deleting attr: " << attrs->getName() << std::endl; }
     delete attrs;
 }

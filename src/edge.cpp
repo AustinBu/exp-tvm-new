@@ -19,7 +19,7 @@ Node* Edge::getEnd() const {
 
 Edge* new_edge(Node* start, Node* end) { return new Edge(start, end); }
 
-void del_edge(Edge* edge) {
-    std::cout << "Deleting edge: " << edge << std::endl;
+void del_edge(bool debug, Edge* edge) {
+    if (debug) { std::cout << "Deleting edge: " << edge << std::endl; }
     delete edge;
 }

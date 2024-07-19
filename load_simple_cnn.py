@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass, field
 from typing import List, Dict, Any
 from python.opmap import opcodemap
-from python.layer import Layer
+from python.graph import Graph
 
 
 @dataclass
@@ -65,7 +65,7 @@ def main():
         print(node.name)
     
     print("----------")
-    model = Layer()
+    model = Graph()
     model_nodes = {}
     model_edges = []
     for n in nodes:

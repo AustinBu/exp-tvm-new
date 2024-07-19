@@ -1,17 +1,21 @@
 import json 
 from python.base import *
-from python.layer import Layer
+from python.graph import Graph
 from python.opmap import *
-import atexit
 
-l = Layer()
-atexit.register(l.cleanup)
+g = Graph()
 f = open('./onnx/json/simple_cnn.json')
 data = json.load(f)
 
-def typeToInt(type):
-    if type == "INTS" or type == "INT":
-        return 1
+def typeToInt(strType):
+    single = False
+    intType = -1
+    if strType == "INTS" or strType == "INT":
+        intType = 1
+
+    if strType ==  "INT":
+        single = True
+    return single, intType
 
 node_data = data['graph']['node']
 node_map = {node_data[i]['name'] : {'input': node_data[i]['input'], 'output': node_data[i]['output']} for i in range(len(node_data))}
@@ -30,21 +34,35 @@ for node in node_data:
         for attr in attrs:
             name = attr.get("name").encode("utf-8")
             ints = attr.get("ints")
-            type = typeToInt(attr.get("type"))
-            if ints != None:
-                ints = list(map(int, ints))
-                attr_list.append(l.new_attrs(name, type, ints)[0])
-            else:
-                i = int(attr.get("i"))
-                attr_list.append(l.new_attrs(name, type, ints, i)[0])
+            i = attr.get("i")
+            single, type = typeToInt(attr.get("type"))
+            if type == 1:
+                if not single:
+                    ints = list(map(int, ints))
+                else:
+                    i = int(i)
+            attr_list.append(g.new_attrs(name, type, ints, i)[0])
     abc = Attrs * len(attr_list)
     attr_arr = abc(*attr_list)
     opcode = opcodemap.get(node.get("opType"))
-    nodeList.append(l.new_node_from_all(opcode, attr_arr, len(attr_list))[0])
+    nodeList.append(g.new_node_from_all(opcode, attr_arr, len(attr_list))[0])
 
-model_edges = []
+edgeList = []
 for i in range(len(nodeList)-1):
-    model_edges.append(l.new_edge(nodeList[i], nodeList[i+1]))
+    edgeList.append(g.new_edge(nodeList[i], nodeList[i+1]))
 
-for edge in model_edges:
-    print(l.get_edge(edge))
+for edge in edgeList:
+    print(g.get_edge(edge))
+
+for attrs in g.attrs:
+    attr = attrs[0]
+    print(attr.name)
+    print("ints = [", end = "")
+    for i in range(attr.ints_size):
+        print(attr.ints[i], end = "")
+        if i + 1 < attr.ints_size:
+            print(end=" ")
+    print("]")
+    if attr.i != 0:
+        print("i = %s" % attr.i)
+    print()

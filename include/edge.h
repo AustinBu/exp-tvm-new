@@ -24,7 +24,7 @@ private:
 extern "C" {
     Edge* new_edge(Node* start, Node* end);
 
-    void del_edge(Edge* edge);
+    void del_edge(bool debug, Edge* edge);
 }
 
 #endif // EDGE_H

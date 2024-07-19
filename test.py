@@ -1,10 +1,8 @@
 from python.base import *
-from python.layer import Layer
+from python.graph import Graph
 import numpy as np
-import atexit
 
-l = Layer()
-atexit.register(l.cleanup)
+l = Graph()
 
 r = l.relu()
 print(l)
@@ -17,11 +15,9 @@ print(l.get_edge(e))
 
 a = l.new_attrs(b"strides", 1, [1, 2, 3, 4, 6])[0]
 print(a.name, id(a))
-print(a.ints[4])
 b = l.new_attrs(b"padding", 1, [1, 2, 3, 4, 5])[0]
 print(b.name, id(b))
-print(a.ints[4])
-print(b.ints[4])
+print(a.ints[4], b.ints[4])
 c = l.new_attrs(b"dil", 1, None, 1)[0]
 
 ab = []

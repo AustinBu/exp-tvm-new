@@ -1,15 +1,17 @@
-from . import base
-from . import opmap
+from python.base import *
+from python.opmap import *
 from ctypes import *
+import atexit
 
-exp = base.exp
-map = opmap.opmap
+map = opmap
+debug = False
 
-class Layer:
+class Graph:
     def __init__(self):
         self.layers = []
         self.edges = []
         self.attrs = []
+        atexit.register(self.cleanup)
 
     def __str__(self):
         s = "Layers["
@@ -39,35 +41,39 @@ class Layer:
         return self.edges[-1]
     
     def get_edge(self, edge):
-        return map[edge.contents.start.contents.opcode], map[edge.contents.end.contents.opcode]
+        return map[edge[0].start[0].opcode], map[edge[0].end[0].opcode]
     
-    def new_attrs(self, name, type, ints, i=0):
+    def new_attrs(self, name, type, ints=None, i=None):
         attr = 0
-        if i != 0:
+        if i != None:
             attr = exp.new_attrs_i(
                 create_string_buffer(name), 
                 type,
                 i
             )
         else:
+            ints = self.handleInts(ints)
             attr = exp.new_attrs_ints(
                 create_string_buffer(name), 
                 type,
-                # ints.ctypes.data_as(POINTER(c_int)),
-                (c_int * len(ints))(*ints),
+                ints,
                 len(ints)
             )
         self.attrs.append(attr)
         return attr
     
+    def handleInts(self, ints):
+        return (c_int * len(ints))(*ints)
+        # ints.ctypes.data_as(POINTER(c_int))
+
     def del_attrs(self, attrs):
-        exp.del_attrs(attrs)
+        exp.del_attrs(debug, attrs)
 
     def del_node(self, node):
-        exp.del_node(node)
+        exp.del_node(debug, node)
 
     def del_edge(self, edge):
-        exp.del_edge(edge)
+        exp.del_edge(debug, edge)
 
     def cleanup(self):
         for n in self.layers:

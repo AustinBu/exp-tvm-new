@@ -51,7 +51,7 @@ int get_opcode(Node* obj) { return obj->getOpcode(); }
 Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize) 
     { return new Node(opcode, attrs, attrsize); }
 
-void del_node(Node* node) {
-    std::cout << "Deleting node: " << node << std::endl;
+void del_node(bool debug, Node* node) {
+    if (debug) { std::cout << "Deleting node: " << node << std::endl; }
     delete node;
 }
