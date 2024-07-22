@@ -17,7 +17,8 @@ class Node(Structure):
     
 class Edge(Structure):
     _fields_ = [("start", POINTER(Node)),
-                ("end", POINTER(Node))]
+                ("end", POINTER(Node)), 
+                ("id", c_int)]
 
 exp.new_node_from_opcode.argtypes = [c_int]
 exp.new_node_from_opcode.restype = POINTER(Node)
@@ -39,3 +40,6 @@ exp.new_attrs_i.restype = POINTER(Attrs)
 exp.del_attrs.argtypes = [c_bool, POINTER(Attrs)]
 exp.del_node.argtypes = [c_bool, POINTER(Node)]
 exp.del_edge.argtypes = [c_bool, POINTER(Edge)]
+
+exp.edge_get_id.argtypes = [POINTER(Edge)]
+exp.edge_get_id.restype = c_int

@@ -38,6 +38,7 @@ class Graph:
 
     def new_edge(self, start, end):
         self.edges.append(exp.new_edge(start, end))
+        print("Edge: ", self.edges[-1].contents.id)
         return self.edges[-1]
     
     def get_edge(self, edge):
