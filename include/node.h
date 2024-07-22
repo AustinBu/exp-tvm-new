@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "attrs.h"
+#include "list.h"
 
 class Node {
 
@@ -18,7 +19,7 @@ public:
     // Copy Constructor
     Node(const Node& other);
 
-    Node(int opcode, Attrs* attrs, int attrsize);
+    Node(int opcode, List* attrs);
 
     // Assignment operator (optional, for best practice)
     Node& operator=(const Node& other) {
@@ -44,8 +45,7 @@ private:
     static int nextId;
     int id;
     int opcode;
-    Attrs* attrs;
-    int attrsize;
+    List* attrs;
 
     static int generateId();
 };
@@ -68,7 +68,7 @@ extern "C" {
 
     int get_opcode(Node* obj);
 
-    Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize);
+    Node* new_node_from_all(int opcode, List* attrs);
 
     void del_node(bool debug, Node* node);
 }

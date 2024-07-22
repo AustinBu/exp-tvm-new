@@ -3,14 +3,14 @@
 Attrs::Attrs() {}
 
 Attrs::Attrs(const char* name, int type, int* in_ints, int intssize)
-    : type(TYPE(type)), intssize(intssize) {
+    : type(DATATYPE(type)), intssize(intssize) {
         this->name = strdup(name); // Copy the string
         this->ints = new int[intssize];
         std::memcpy(this->ints, in_ints, intssize * sizeof(int));
     }
 
 Attrs::Attrs(const char* name, int type, int i)
-    : type(TYPE(type)), i(i) {
+    : type(DATATYPE(type)), i(i) {
         this->name = strdup(name); // Copy the string
     }
 

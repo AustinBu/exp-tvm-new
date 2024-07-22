@@ -1,5 +1,5 @@
 from python.base import *
-from python.opmap import *
+from python.maps import *
 from ctypes import *
 import atexit
 
@@ -11,6 +11,7 @@ class Graph:
         self.layers = []
         self.edges = []
         self.attrs = []
+        self.lists = []
         atexit.register(self.cleanup)
 
     def __str__(self):
@@ -32,8 +33,8 @@ class Graph:
         self.layers.append(exp.new_node_from_opcode(opcode))
         return self.layers[-1]
     
-    def new_node_from_all(self, opcode, attrs, attrsize):
-        self.layers.append(exp.new_node_from_all(opcode, attrs, attrsize))
+    def new_node_from_all(self, opcode, attrs_list):
+        self.layers.append(exp.new_node_from_all(opcode, attrs_list))
         return self.layers[-1]
 
     def new_edge(self, start, end):
@@ -41,7 +42,7 @@ class Graph:
         return self.edges[-1]
     
     def get_edge(self, edge):
-        return map[edge[0].start[0].opcode], map[edge[0].end[0].opcode]
+        return map[edge[0].getStartOp()], map[edge[0].getEndOp()]
     
     def new_attrs(self, name, type, ints=None, i=None):
         attr = 0
@@ -66,6 +67,12 @@ class Graph:
         return (c_int * len(ints))(*ints)
         # ints.ctypes.data_as(POINTER(c_int))
 
+    def new_list(self, arr, size, type):
+        arr = cast(arr, c_void_p)
+        l = exp.new_list(arr, size, type)
+        self.lists.append(l)
+        return l
+
     def del_attrs(self, attrs):
         exp.del_attrs(debug, attrs)
 
@@ -75,6 +82,9 @@ class Graph:
     def del_edge(self, edge):
         exp.del_edge(debug, edge)
 
+    def del_list(self, list):
+        exp.del_list(debug, list)
+
     def cleanup(self):
         for n in self.layers:
             self.del_node(n)
@@ -82,4 +92,6 @@ class Graph:
             self.del_edge(e)
         for a in self.attrs:
             self.del_attrs(a)
+        for l in self.lists:
+            self.del_list(l)
 

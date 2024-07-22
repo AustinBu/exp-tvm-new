@@ -20,10 +20,10 @@ Node::~Node() {}
 
 int Node::getId() const { return id; }
 
-Node::Node(int opcode, Attrs* in_attrs, int attrsize)
-    : opcode(opcode), attrs(in_attrs), attrsize(attrsize) {
-        this->attrs = new Attrs[attrsize];
-        std::memcpy(this->attrs, in_attrs, attrsize * sizeof(Attrs));
+Node::Node(int opcode, List* in_attrs)
+    : id(generateId()), opcode(opcode) {
+        int size = in_attrs->getSize();
+        this->attrs = in_attrs;
 }
 
 int Node::getOpcode() const { return opcode; }
@@ -48,8 +48,8 @@ int get_id(Node* obj) { return obj->getId(); }
 
 int get_opcode(Node* obj) { return obj->getOpcode(); }
 
-Node* new_node_from_all(int opcode, Attrs* attrs, int attrsize) 
-    { return new Node(opcode, attrs, attrsize); }
+Node* new_node_from_all(int opcode, List* attrs) 
+    { return new Node(opcode, attrs); }
 
 void del_node(bool debug, Node* node) {
     if (debug) { std::cout << "Deleting node: " << node << std::endl; }

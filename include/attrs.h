@@ -8,7 +8,7 @@ typedef enum {
     INT,
     FLOAT,
     DOUBLE
-} TYPE;
+} DATATYPE;
 
 class Attrs {
 public:
@@ -24,7 +24,7 @@ public:
 
 private:
     const char* name;
-    TYPE type;
+    DATATYPE type;
     int* ints;
     int intssize;
     int i;
