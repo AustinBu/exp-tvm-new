@@ -62,17 +62,18 @@ for node in node_data:
     attr_arr = abc(*(attr_list[start:end]))
     opcode = opcodemap.get(node.get("opType"))
 
-    list_attr = g.new_list(attr_arr, (end - start))
+    list_attr = g.new_list(attr_arr, (end - start), 0)
     list_refs.append(list_attr)
     nodeList.append(g.new_node_from_all(opcode, list_attr)[0])
 
 for node in nodeList:
     if node.attrs[0].size != 0:
         for i in range(node.attrs[0].size):
-            data = node.attrs[0].data[i]
+            data = node.getData()[i]
             print(data.name)
             for j in range(data.ints_size):
                 print(data.ints[j], end = " ")
+            print()
 
 edgeList = []
 for i in range(len(nodeList)-1):
