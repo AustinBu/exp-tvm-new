@@ -33,7 +33,8 @@ class Node(Structure):
     
 class Edge(Structure):
     _fields_ = [("start", POINTER(Node)),
-                ("end", POINTER(Node))]
+                ("end", POINTER(Node)), 
+                ("id", c_int)]
     def getStartOp(self):
         # Redirect attribute access to the first object in the list
         return self.start[0].opcode
@@ -49,6 +50,8 @@ exp.new_node_from_all.restype = POINTER(Node)
 
 exp.new_edge.argtypes = [POINTER(Node), POINTER(Node)]
 exp.new_edge.restype = POINTER(Edge)
+exp.edge_get_id.argtypes = [POINTER(Edge)]
+exp.edge_get_id.restype = c_int
 
 exp.get_opcode.argtypes = [POINTER(Node)]
 exp.get_opcode.restype = c_int
@@ -65,3 +68,4 @@ exp.del_attrs.argtypes = [c_bool, POINTER(Attrs)]
 exp.del_node.argtypes = [c_bool, POINTER(Node)]
 exp.del_edge.argtypes = [c_bool, POINTER(Edge)]
 exp.del_list.argtypes = [c_bool, POINTER(List)]
+
