@@ -1,35 +1,31 @@
+#include <iostream>
+
 #include "../include/node.h"
 #include "../include/attrs.h"
-#include <iostream>
+
 
 int Node::nextId = 1;
 
-Node::Node() : id(generateId()) {}
+Node::Node():
+           data(std::make_shared<NodeData>(generateId(), 0, nullptr)) {}
 
-Node::Node(int opcode) : id(generateId()), opcode(opcode) {}
+Node::Node(int opcode):
+           data(std::make_shared<NodeData>(generateId(), opcode, nullptr)) {}
 
-Node::Node(const Node& source) : id(source.id), opcode(0)
-{
-    if (source.opcode == 5)
-    {
-        opcode = 6;
-    }
-}
+Node::Node(int opcode, List* in_attrs):
+           data(std::make_shared<NodeData>(generateId(), 0, in_attrs)) {}
+
+Node::Node(const Node& source):
+           data(source.data) {}
 
 Node::~Node() {}
 
-int Node::getId() const { return id; }
+int Node::getId() const { return data->id; }
 
-Node::Node(int opcode, List* in_attrs)
-    : id(generateId()), opcode(opcode) {
-        int size = in_attrs->getSize();
-        this->attrs = in_attrs;
-}
-
-int Node::getOpcode() const { return opcode; }
+int Node::getOpcode() const { return data->opcode; }
 
 void Node::setOpcode(int newOpcode) {
-    opcode = newOpcode;
+    data->opcode = newOpcode;
 }
 
 int Node::generateId() {
@@ -39,9 +35,7 @@ int Node::generateId() {
 Node* new_node_from_opcode(int opcode) { return new Node(opcode); }
 
 void node_from_node(Node* source) {
-    if (source->getOpcode() == 5) {
-        source->setOpcode(6);
-    }
+    // todo: supposed to return a new node pointer?
 }
 
 int get_id(Node* obj) { return obj->getId(); }
