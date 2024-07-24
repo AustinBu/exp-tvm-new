@@ -35,6 +35,9 @@ print("initializer_names", initializer_names)
 print("in_out_names", in_out_names)
 
 nodeList = []
+graphNodes = {}
+edgeList = []
+
 for i_node in initial_data:
     attr_list = []
     a = g.new_attrs(b'dims', i_node['dataType'], list(map(int, i_node['dims'])))[0]
@@ -43,9 +46,7 @@ for i_node in initial_data:
     attr_arr = abc(*(attr_list))
     list_attr = g.new_list(attr_arr, len(attr_list), 0)
     nodeList.append(g.new_node_from_all(0, list_attr)[0])
-
-
-    print(i_node['name'])
+    graphNodes[i_node['name']] = nodeList[-1]
 
 for node in node_data:
     attr_list = []
@@ -71,6 +72,13 @@ for node in node_data:
 
     list_attr = g.new_list(attr_arr, len(attr_list), 0)
     nodeList.append(g.new_node_from_all(opcode, list_attr)[0])
+    graphNodes[node['name']] = nodeList[-1]
+    for i in node['input']:
+        if i in initializer_names:
+            edgeList.append(g.new_edge(graphNodes[i], graphNodes[node['name']]))
+        for k in node_map:
+            if i in node_map[k]['output']:
+                edgeList.append(g.new_edge(graphNodes[k], graphNodes[node['name']]))
 
 # for node in nodeList:
 #     if node.attrs[0].size != 0:
@@ -81,24 +89,21 @@ for node in node_data:
 #                 print(data.ints[j], end = " ")
 #             print()
 
-edgeList = []
-for i in range(len(nodeList)-1):
-    edgeList.append(g.new_edge(nodeList[i], nodeList[i+1]))
+# for i in range(len(nodeList)-1):
+#     edgeList.append(g.new_edge(nodeList[i], nodeList[i+1]))
 
 for edge in edgeList:
     print(g.get_edge(edge))
 
-for attrs in g.attrs:
-    attr = attrs[0]
-    print(attr.name)
-    print("ints = [", end = "")
-    for i in range(attr.ints_size):
-        print(attr.ints[i], end = "")
-        if i + 1 < attr.ints_size:
-            print(end=" ")
-    print("]")
-    if attr.i != 0:
-        print("i = %s" % attr.i)
-    print()
-breakpoint()
-print(len(nodeList))
+# for attrs in g.attrs:
+#     attr = attrs[0]
+#     print(attr.name)
+#     print("ints = [", end = "")
+#     for i in range(attr.ints_size):
+#         print(attr.ints[i], end = "")
+#         if i + 1 < attr.ints_size:
+#             print(end=" ")
+#     print("]")
+#     if attr.i != 0:
+#         print("i = %s" % attr.i)
+#     print()
