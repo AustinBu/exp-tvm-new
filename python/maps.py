@@ -3,15 +3,23 @@ from python.base import *
 opmap = {
     0: "Initializer",
     1: "Conv",
+    2: "BatchNormalization",
+    3: "MaxPool",
+    4: "GlobalAveragePool",
     5: "Relu",
-    6: "Clip"
+    6: "Clip", 
+    7: "Add"
 }
 
 opcodemap = {
     "Initializer": 0,
     "Conv": 1, 
+    "BatchNormalization": 2,
+    "MaxPool": 3,
+    "GlobalAveragePool": 4,
     "Relu": 5,
-    "Clip": 6
+    "Clip": 6, 
+    "Add": 7
 }
 
 attr_to_int_map = {
