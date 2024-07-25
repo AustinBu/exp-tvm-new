@@ -5,6 +5,17 @@
 #include "attrs.h"
 #include "list.h"
 
+typedef enum{
+    INITIALIZER,
+    CONV,
+    BATCHNORMALIZATION,
+    MAXPOOL,
+    GLOBALAVERAGEPOOL,
+    RELU,
+    CLIP, 
+    ADD
+} OPCODE;
+
 class Node {
 
 public:
@@ -44,7 +55,7 @@ public:
 private:
     static int nextId;
     int id;
-    int opcode;
+    OPCODE opcode;
     List* attrs;
 
     static int generateId();

@@ -6,13 +6,13 @@ int Node::nextId = 1;
 
 Node::Node() : id(generateId()) {}
 
-Node::Node(int opcode) : id(generateId()), opcode(opcode) {}
+Node::Node(int opcode) : id(generateId()), opcode(OPCODE(opcode)) {}
 
-Node::Node(const Node& source) : id(source.id), opcode(0)
+Node::Node(const Node& source) : id(source.id), opcode(OPCODE(0))
 {
     if (source.opcode == 5)
     {
-        opcode = 6;
+        opcode = OPCODE(6);
     }
 }
 
@@ -21,7 +21,7 @@ Node::~Node() {}
 int Node::getId() const { return id; }
 
 Node::Node(int opcode, List* in_attrs)
-    : id(generateId()), opcode(opcode) {
+    : id(generateId()), opcode(OPCODE(opcode)) {
         int size = in_attrs->getSize();
         this->attrs = in_attrs;
 }
@@ -29,7 +29,7 @@ Node::Node(int opcode, List* in_attrs)
 int Node::getOpcode() const { return opcode; }
 
 void Node::setOpcode(int newOpcode) {
-    opcode = newOpcode;
+    opcode = OPCODE(newOpcode);
 }
 
 int Node::generateId() {
