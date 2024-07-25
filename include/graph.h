@@ -12,12 +12,15 @@ public:
 
     void addEdge(Edge* e);
 
-    std::unordered_map<Node, std::vector<Node> >& getAdjList();
+    std::unordered_map<Node, std::vector<Node>>& getAdjList();
+
+    void toNativeGraph(std::vector<int>& nodeIds, std::vector<int>& nodeOps,
+                       std::vector<size_t>& edgeStartIdx, std::vector<size_t>& edgeEndIdx);
 
     void printGraph() const;
 
 private:
-    std::unordered_map<Node, std::vector<Node> > adjList;
+    std::unordered_map<Node, std::vector<Node>> adjList;
 };
 
 #endif // GRAPH_H
