@@ -53,7 +53,6 @@ private:
     OPCODE opcode;
     List* attrs;
 
-    static int nextId;
     static int generateId();
 };
 

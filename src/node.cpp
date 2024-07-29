@@ -6,22 +6,21 @@
 
 int Node::nextId = 1;
 
-Node::Node():
-           data(std::make_shared<NodeData>(generateId(), 0, nullptr)) {}
+Node::Node() {}
 
 Node::Node(int opcode) : id(generateId()), opcode(OPCODE(opcode)) {}
 
 Node::Node(const Node& source) : id(source.id), opcode(OPCODE(0))
 {
-    if (source.opcode == 5)
+    if (source.opcode != 0)
     {
-        opcode = OPCODE(6);
+        opcode = OPCODE(source.opcode);
     }
 }
 
 Node::~Node() {}
 
-int Node::getId() const { return data->id; }
+int Node::getId() const { return this->id; }
 
 Node::Node(int opcode, List* in_attrs)
     : id(generateId()), opcode(OPCODE(opcode)) {
@@ -29,7 +28,7 @@ Node::Node(int opcode, List* in_attrs)
         this->attrs = in_attrs;
 }
 
-int Node::getOpcode() const { return opcode; }
+int Node::getOpcode() const { return this->opcode; }
 
 void Node::setOpcode(int newOpcode) {
     opcode = OPCODE(newOpcode);
