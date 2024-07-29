@@ -46,16 +46,25 @@ int main() {
     //     std::cout << std::endl;
     // }
 
+    std::printf("------------------------\n");
     graph.printGraph();
 
     expedera::PatternGraph* patterns = expedera::PatternGraph::newGraph();
 
-    size_t idx4 = patterns->addParent(4);
-    patterns->setChildIdx(idx4);
+    // patterns work as a stack
+    // you can use reference of parent to create child
+    // further parents become parent of child
+    // bottom up
+
     size_t idx3 = patterns->addParent(3);
+    // Set Child = set end
     patterns->setChildIdx(idx3);
-    patterns->addParent(3);
     patterns->addParent(2);
+
+    
+    // size_t idx3 = patterns->addParent(3);
+    // patterns->setChildIdx(idx3);
+    // patterns->addParent(3);
 
     // converting the graph representation to index representation
     std::vector<int> nodeIds;
