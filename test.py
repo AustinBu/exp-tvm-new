@@ -40,7 +40,7 @@ for i in range(1):
 for i in range(2):
     print(nodeList[0].getData()[i].name)
     if nodeList[0].getData()[i].ints_size != 0:
-        print(nodeList[0].getData()[i].ints[1])
+        print(nodeList[0].getData()[i].ints[4])
     else:
         print(nodeList[0].getData()[i].i)
 

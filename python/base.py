@@ -2,7 +2,6 @@ from ctypes import *
 
 exp = cdll.LoadLibrary('./exp.so')
 
-
 class Attrs(Structure):
     _fields_ = [("name", c_char_p),
                 ("type", c_int),
@@ -36,10 +35,8 @@ class Edge(Structure):
                 ("end", POINTER(Node)), 
                 ("id", c_int)]
     def getStartOp(self):
-        # Redirect attribute access to the first object in the list
         return self.start[0].opcode
     def getEndOp(self):
-        # Redirect attribute access to the first object in the list
         return self.end[0].opcode
 
 exp.new_node_from_opcode.argtypes = [c_int]

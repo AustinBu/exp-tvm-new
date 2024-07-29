@@ -14,16 +14,6 @@ def printNode(n):
     print(n.attrs[0].size)
     print()
 
-def typeToInt(strType):
-    single = False
-    intType = -1
-    if strType == "INTS" or strType == "INT":
-        intType = 1
-
-    if strType ==  "INT":
-        single = True
-    return single, intType
-
 initial_data = data['graph']['initializer']
 node_data = data['graph']['node']
 node_map = {node_data[i]['name'] : {'input': node_data[i]['input'], 'output': node_data[i]['output']} for i in range(len(node_data))}
@@ -31,8 +21,10 @@ initializer_names = set([data['graph']['initializer'][i]['name'] for i in range(
 input_names = [data['graph']['input'][i]['name'] for i in range(len(data['graph']['input']))]
 output_names = [data['graph']['output'][i]['name'] for i in range(len(data['graph']['output']))]
 in_out_names = set(input_names + output_names)
-print("initializer_names", initializer_names)
-print("in_out_names", in_out_names)
+
+print()
+print("initializer_names: ", initializer_names)
+print("in_out_names: ", in_out_names)
 
 nodeList = []
 graphNodes = {}
@@ -49,21 +41,27 @@ for i_node in initial_data:
     graphNodes[i_node['name']] = nodeList[-1]
 
 for node in node_data:
+    print()
+    print("Parsing node: " + str(node.get("name")))
+
     attr_list = []
     attrs = node.get("attribute", None)
     if attrs != None:
         for attr in attrs:
+            print("--> Parsing attr: " + str(attr))
+
             name = attr.get("name").encode("utf-8")
             ints = attr.get("ints")
             i = attr.get("i")
 
-            single, type = typeToInt(attr.get("type"))
+            single, type = g.typeToInt(attr.get("type"))
             if type == 1:
                 if not single:
                     ints = list(map(int, ints))
                 else:
                     i = int(i)
             a = g.new_attrs(name, type, ints, i)[0]
+            print("Created new ATTRS: " + a.name.decode('utf-8'), id(a))
             attr_list.append(a)
 
     abc = Attrs * len(attr_list)
@@ -71,7 +69,12 @@ for node in node_data:
     opcode = opcodemap.get(node.get("opType"))
 
     list_attr = g.new_list(attr_arr, len(attr_list), 0)
+
     nodeList.append(g.new_node_from_all(opcode, list_attr)[0])
+    print("Created new NODE: " 
+          + str(get_op_from_code(nodeList[-1].opcode)) 
+          + str(nodeList[-1].id), id(nodeList[-1]))
+
     graphNodes[node['name']] = nodeList[-1]
     for i in node['input']:
         if i in initializer_names:
@@ -80,30 +83,24 @@ for node in node_data:
             if i in node_map[k]['output']:
                 edgeList.append(g.new_edge(graphNodes[k], graphNodes[node['name']]))
 
-# for node in nodeList:
-#     if node.attrs[0].size != 0:
-#         for i in range(node.attrs[0].size):
-#             data = node.getData()[i]
-#             print(data.name)
-#             for j in range(data.ints_size):
-#                 print(data.ints[j], end = " ")
-#             print()
+    input(": ")
 
-# for i in range(len(nodeList)-1):
-#     edgeList.append(g.new_edge(nodeList[i], nodeList[i+1]))
-
+print()
 for edge in edgeList:
-    print(g.get_edge(edge))
+    e = g.get_edge(edge)
+    print("Edge" + str(edge.contents.id) + ": ", end=" ")
+    print(str(e[0]) + str(e[1]) + ",", str(e[2]) + str(e[3]))
 
-# for attrs in g.attrs:
-#     attr = attrs[0]
-#     print(attr.name)
-#     print("ints = [", end = "")
-#     for i in range(attr.ints_size):
-#         print(attr.ints[i], end = "")
-#         if i + 1 < attr.ints_size:
-#             print(end=" ")
-#     print("]")
-#     if attr.i != 0:
-#         print("i = %s" % attr.i)
-#     print()
+for node in nodeList:
+    print()
+    print(str(get_op_from_code(node.opcode)) + str(node.id))
+    data = node.getData()
+    if data != 0:
+        for d in data:
+            print("> " + str(d.name.decode('utf-8')), end=": ")
+            if d.ints_size == 0:
+                print(d.i)
+            else:
+                for i in range(d.ints_size):
+                    print(d.ints[i], end=" ")
+                print()

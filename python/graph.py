@@ -39,11 +39,10 @@ class Graph:
 
     def new_edge(self, start, end):
         self.edges.append(exp.new_edge(start, end))
-        print("Edge: ", self.edges[-1].contents.id)
         return self.edges[-1]
     
     def get_edge(self, edge):
-        return map[edge[0].getStartOp()], map[edge[0].getEndOp()]
+        return map[edge[0].getStartOp()], edge[0].start[0].id, map[edge[0].getEndOp()], edge[0].end[0].id
     
     def new_attrs(self, name, type, ints=None, i=None):
         attr = 0
@@ -73,6 +72,16 @@ class Graph:
         l = exp.new_list(arr, size, type)
         self.lists.append(l)
         return l
+    
+    def typeToInt(self, strType):
+        single = False
+        intType = -1
+        if strType == "INTS" or strType == "INT":
+            intType = 1
+
+        if strType ==  "INT":
+            single = True
+        return single, intType
 
     def del_attrs(self, attrs):
         exp.del_attrs(debug, attrs)

@@ -29,3 +29,6 @@ attr_to_int_map = {
 }
 
 int_to_attr_map = {value: key for key, value in attr_to_int_map.items()}
+
+def get_op_from_code(opcode):
+    return opmap[opcode]

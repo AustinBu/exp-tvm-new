@@ -7,7 +7,7 @@ List::List(void* data, int size, int type)
     : size(size), type(LISTTYPE(type)) {
         if (type == 0) {
             Attrs* attr = static_cast<Attrs*>(data);
-            this->attrs = attr;
+            this->data = attr;
         }
     }
 
@@ -18,7 +18,7 @@ const int List::getSize() const {
 }
 
 const Attrs* List::getAttr() const {
-    return attrs;
+    return static_cast<Attrs*>(data);
 }
 
 List* new_list(void* data, int size, int type)

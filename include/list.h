@@ -23,7 +23,7 @@ public:
     const Attrs* getAttr() const;
 
 private:
-    Attrs* attrs;
+    void* data;
     int size;
     LISTTYPE type;
 };
