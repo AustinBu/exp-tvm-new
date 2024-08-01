@@ -1,23 +1,23 @@
 from python.base import *
-from python.graph import Graph
+from python.graph import Model
 import numpy as np
 
-l = Graph()
+m = Model()
 
-r = l.relu()
-print(l)
+r = m.relu()
+print(m)
 
-c = l.new_node(6)
-print(c.contents.opcode)
+c = m.new_node(6)[0]
+print(c.opcode)
 
-e = l.new_edge(r, c)
-print(l.get_edge(e))
+e = m.new_edge(r, c)[0]
+print(m.get_edge(e))
 nodeList = []
 
 for i in range(1):
-    a = l.new_attrs(b"strides", 1, [1, 2, 3, 4, 6])[0]
+    a = m.new_attrs(b"strides", 1, [1, 2, 3, 4, 6])[0]
     print(a.name, id(a))
-    b = l.new_attrs(b"padding", 1, [1, 2, 3, 4, 5])[0]
+    b = m.new_attrs(b"padding", 1, [1, 2, 3, 4, 5])[0]
     print(b.name, id(b))
     print(a.ints[4], b.ints[4])
 
@@ -27,14 +27,14 @@ for i in range(1):
     abtype = Attrs * len(ab)
     attr_arr = abtype(*ab)
 
-    attr_list = l.new_list(attr_arr, len(ab), 0)
-    n = l.new_node_from_all(5, attr_list)
+    attr_list = m.new_list(attr_arr, len(ab), 4)
+    n = m.new_node_from_all(5, attr_list)
     nodeList.append(n[0])
 
 for i in range(1):
-    c = l.new_attrs(b"dil", 1, None, 1)
-    c_list = l.new_list(c, 1, 0)
-    n1 = l.new_node_from_all(5, c_list)
+    c = m.new_attrs(b"dil", 1, None, 1)
+    c_list = m.new_list(c, 1, 4)
+    n1 = m.new_node_from_all(5, c_list)
     nodeList.append(n1[0])
 
 for i in range(2):

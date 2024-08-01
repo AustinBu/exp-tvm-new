@@ -22,13 +22,13 @@ opcodemap = {
     "Add": 7
 }
 
-attr_to_int_map = {
-    Attrs: 1,
-    Node: 2,
-    Edge: 3
-}
+# attr_to_int_map = {
+#     Attrs: 1,
+#     Node: 2,
+#     Edge: 3
+# }
 
-int_to_attr_map = {value: key for key, value in attr_to_int_map.items()}
+# int_to_attr_map = {value: key for key, value in attr_to_int_map.items()}
 
 def get_op_from_code(opcode):
     return opmap[opcode]

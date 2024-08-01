@@ -10,17 +10,21 @@ class Graph {
 public:
     Graph();
 
-    void addEdge(Edge* e);
+    Graph(List* e);
 
-    std::unordered_map<Node, std::vector<Node>>& getAdjList();
+    ~Graph();
 
-    void toNativeGraph(std::vector<int>& nodeIds, std::vector<int>& nodeOps,
-                       std::vector<size_t>& edgeStartIdx, std::vector<size_t>& edgeEndIdx);
-
-    void printGraph() const;
+    List* getEdgeList();
 
 private:
-    std::unordered_map<Node, std::vector<Node>> adjList;
+    List* edgeList;
 };
 
+extern "C" {
+    Graph* new_graph(List* e);
+
+    int* pattern_find(Graph* g, int* pattern, int patternsize);
+
+    void del_graph(bool debug, Graph* graph);
+}
 #endif // GRAPH_H

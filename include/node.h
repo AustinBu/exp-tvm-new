@@ -7,6 +7,8 @@
 #include "list.h"
 #include "node_data.h"
 
+class List;
+
 typedef enum{
     INITIALIZER,
     CONV,

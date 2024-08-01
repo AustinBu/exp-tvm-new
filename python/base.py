@@ -2,20 +2,22 @@ from ctypes import *
 
 exp = cdll.LoadLibrary('./exp.so')
 
+class List(Structure):
+    _fields_ = [("data", c_void_p),
+                ("size", c_int),
+                ("type", c_int)]
+    def getData(self):
+        if self.type == 4:
+            return cast(self.data, POINTER(Attrs))
+        if self.type == 6:
+            return cast(self.data, POINTER(Edge))
+
 class Attrs(Structure):
     _fields_ = [("name", c_char_p),
                 ("type", c_int),
                 ("ints", POINTER(c_int)),
                 ("ints_size", c_int),
                 ("i", c_int)]
-    
-class List(Structure):
-    _fields_ = [("data", c_void_p),
-                ("size", c_int),
-                ("type", c_int)]
-    def getData(self):
-        if self.type == 0:
-            return cast(self.data, POINTER(Attrs))
 
 class Node(Structure):
     _fields_ = [("id", c_int),
@@ -39,6 +41,11 @@ class Edge(Structure):
     def getEndOp(self):
         return self.end[0].opcode
 
+class Graph(Structure):
+    _fields_ = [("edges", POINTER(List))]
+    def getData(self):
+        return self.edges[0].getData()
+
 exp.new_node_from_opcode.argtypes = [c_int]
 exp.new_node_from_opcode.restype = POINTER(Node)
 exp.node_from_node.argtypes = [POINTER(Node)]
@@ -61,8 +68,14 @@ exp.new_attrs_i.restype = POINTER(Attrs)
 exp.new_list.argtypes = [c_void_p, c_int, c_int]
 exp.new_list.restype = POINTER(List)
 
+exp.new_graph.argtypes = [POINTER(List)]
+exp.new_graph.restype = POINTER(Graph)
+
+exp.pattern_find.argtypes = [POINTER(Graph), POINTER(c_int), c_int]
+exp.pattern_find.restype = POINTER(c_int)
+
 exp.del_attrs.argtypes = [c_bool, POINTER(Attrs)]
 exp.del_node.argtypes = [c_bool, POINTER(Node)]
 exp.del_edge.argtypes = [c_bool, POINTER(Edge)]
 exp.del_list.argtypes = [c_bool, POINTER(List)]
-
+exp.del_graph.argtypes = [c_bool, POINTER(Graph)]
