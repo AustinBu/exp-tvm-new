@@ -1,6 +1,3 @@
-#include <cstdlib>
-#include <cstring>
-
 #include "../include/attrs.h"
 
 Attrs::Attrs() {}

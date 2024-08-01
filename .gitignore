@@ -1,5 +1,3 @@
 *.so
 *.pyc
 /.vscode
-*.o
-/build

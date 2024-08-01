@@ -4,20 +4,19 @@ from ctypes import *
 import atexit
 
 map = opmap
-debug = True
+debug = False
 
-class Model:
+class Graph:
     def __init__(self):
-        self.nodes = []
+        self.layers = []
         self.edges = []
         self.attrs = []
         self.lists = []
-        self.graph = []
         atexit.register(self.cleanup)
 
     def __str__(self):
         s = "Layers["
-        for l in self.nodes:
+        for l in self.layers:
             # breakpoint()
             if l.contents.opcode == 5:
                 s += "Relu(), "
@@ -27,23 +26,23 @@ class Model:
         return s
 
     def relu(self):
-        self.nodes.append(exp.new_node_from_opcode(5))
-        return self.nodes[-1]
+        self.layers.append(exp.new_node_from_opcode(5))
+        return self.layers[-1]
     
     def new_node(self, opcode):
-        self.nodes.append(exp.new_node_from_opcode(opcode))
-        return self.nodes[-1]
+        self.layers.append(exp.new_node_from_opcode(opcode))
+        return self.layers[-1]
     
     def new_node_from_all(self, opcode, attrs_list):
-        self.nodes.append(exp.new_node_from_all(opcode, attrs_list))
-        return self.nodes[-1]
+        self.layers.append(exp.new_node_from_all(opcode, attrs_list))
+        return self.layers[-1]
 
     def new_edge(self, start, end):
         self.edges.append(exp.new_edge(start, end))
         return self.edges[-1]
     
     def get_edge(self, edge):
-        return map[edge.getStartOp()], edge.start[0].id, map[edge.getEndOp()], edge.end[0].id
+        return map[edge[0].getStartOp()], edge[0].start[0].id, map[edge[0].getEndOp()], edge[0].end[0].id
     
     def new_attrs(self, name, type, ints=None, i=None):
         attr = 0
@@ -83,22 +82,6 @@ class Model:
         if strType ==  "INT":
             single = True
         return single, intType
-    
-    def new_graph(self, edgeList):
-        datatype = Edge * len(edgeList)
-        edge_arr = datatype(*edgeList)
-        edge_list = self.new_list(edge_arr, len(self.edges), 6)
-        graph = exp.new_graph(edge_list)
-        self.graph.append(graph)
-        return graph
-    
-    def pattern_find(self, graph, pattern):
-        list = exp.pattern_find(
-            graph, 
-            self.handleInts(pattern),
-            len(pattern))
-        self.lists.append(list)
-        return list
 
     def del_attrs(self, attrs):
         exp.del_attrs(debug, attrs)
@@ -112,11 +95,8 @@ class Model:
     def del_list(self, list):
         exp.del_list(debug, list)
 
-    def del_graph(self, graph):
-        exp.del_graph(debug, graph)
-
     def cleanup(self):
-        for n in self.nodes:
+        for n in self.layers:
             self.del_node(n)
         for e in self.edges:
             self.del_edge(e)
@@ -124,6 +104,4 @@ class Model:
             self.del_attrs(a)
         for l in self.lists:
             self.del_list(l)
-        for g in self.graph:
-            self.del_graph(g)
 

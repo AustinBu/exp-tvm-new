@@ -7,10 +7,7 @@ typedef enum {
     CHAR,
     INT,
     FLOAT,
-    DOUBLE,
-    ATTRS,
-    NODE,
-    EDGE,
+    DOUBLE
 } DATATYPE;
 
 class Attrs {
