@@ -3,7 +3,12 @@
 
 #include <iostream>
 #include "attrs.h"
-#include "edge.h"
+
+typedef enum {
+    ATTRS,
+    NODE,
+    EDGE,
+} LISTTYPE;
 
 class List {
 public:
@@ -13,16 +18,14 @@ public:
 
     ~List();
 
-    int getSize();
+    const int getSize() const;
     
-    Attrs* getAttr();
-
-    Edge* getEdge();
+    const Attrs* getAttr() const;
 
 private:
     void* data;
     int size;
-    DATATYPE type;
+    LISTTYPE type;
 };
 
 extern "C" {

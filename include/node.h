@@ -1,13 +1,9 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <memory>
-
+#include <iostream>
 #include "attrs.h"
 #include "list.h"
-#include "node_data.h"
-
-class List;
 
 typedef enum{
     INITIALIZER,
@@ -28,16 +24,23 @@ public:
 
     Node(int opcode);
 
-    Node(int opcode, List* attrs);
+    // Destructor
+    ~Node();
 
     // Copy Constructor
     Node(const Node& other);
 
-    // Destructor
-    ~Node();
+    Node(int opcode, List* attrs);
 
-    // Assignment operator
-    Node& operator=(const Node& other) = delete;
+    // Assignment operator (optional, for best practice)
+    Node& operator=(const Node& other) {
+        if (this == &other) {
+            return *this;
+        }
+
+        opcode = other.opcode;
+        return *this;
+    }
 
     int getId() const;
 
@@ -46,7 +49,7 @@ public:
     void setOpcode(int opcode);
 
     bool operator==(const Node& other) const {
-        return getId() == other.getId();
+        return id == other.id;
     }
 
 private:
