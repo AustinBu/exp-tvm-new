@@ -7,6 +7,8 @@ class List(Structure):
                 ("size", c_int),
                 ("type", c_int)]
     def getData(self):
+        if self.type == 1:
+            return cast(self.data, POINTER(c_int))
         if self.type == 4:
             return cast(self.data, POINTER(Attrs))
         if self.type == 6:
@@ -72,7 +74,7 @@ exp.new_graph.argtypes = [POINTER(List)]
 exp.new_graph.restype = POINTER(Graph)
 
 exp.pattern_find.argtypes = [POINTER(Graph), POINTER(c_int), c_int]
-exp.pattern_find.restype = POINTER(c_int)
+exp.pattern_find.restype = POINTER(List)
 
 exp.del_attrs.argtypes = [c_bool, POINTER(Attrs)]
 exp.del_node.argtypes = [c_bool, POINTER(Node)]

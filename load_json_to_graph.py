@@ -108,8 +108,7 @@ for node in nodeList:
                 print()
 
 graph = m.new_graph(edgeList)[0]
-breakpoint()
 pattern = [1, 5]
-ids = m.pattern_find(graph, pattern)
-for i in range(4):
-    print(ids[i])
+ids = m.pattern_find(graph, pattern)[0]
+for i in range(ids.size):
+    print(ids.getData()[i])

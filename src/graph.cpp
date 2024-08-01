@@ -10,9 +10,6 @@ Graph::Graph() {}
 
 Graph::Graph(List* e) {
     this->edgeList = e;
-    std::cout << this->edgeList->getEdge()->getId() << std::endl;
-    std::cout << this->edgeList->getEdge()->getStart()->getOpcode() << std::endl;
-
 }
 
 Graph::~Graph() {}
@@ -23,7 +20,7 @@ List* Graph::getEdgeList() {
     return edgeList;
 }
 
-int* pattern_find(Graph* g, int* pattern, int patternsize) {
+List* pattern_find(Graph* g, int* pattern, int patternsize) {
     std::vector<int> returnEdges;
     Edge* edges = g->getEdgeList()->getEdge();
 
@@ -35,14 +32,11 @@ int* pattern_find(Graph* g, int* pattern, int patternsize) {
         }
     }
 
-    int* arr = returnEdges.data();
+    int* arr = new int(returnEdges.size());
+    std::memcpy(arr, returnEdges.data(), returnEdges.size() * sizeof(int));
+    void* void_ptr = static_cast<void*>(arr);
 
-    for (size_t i = 0; i < returnEdges.size(); ++i) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << std::endl;
-
-    return returnEdges.data();
+    return new List(void_ptr, returnEdges.size(), INT);
 }
 
 void del_graph(bool debug, Graph* graph) {

@@ -6,16 +6,22 @@ List::List() {}
 
 List::List(void* data, int size, int type)
     : size(size), type(DATATYPE(type)) {
-        if (DATATYPE(type) == ATTRS) {
-            Attrs* attrs = static_cast<Attrs*>(data);
-            this->data = attrs;
-        } else if (DATATYPE(type) == EDGE) {
-            Edge* edges = static_cast<Edge*>(data);
-            this->data = edges;
-        }
+        // if (this->type == ATTRS) {
+        //     Attrs* attrs = static_cast<Attrs*>(data);
+        //     this->data = attrs;
+        // } else if (this->type == EDGE) {
+        //     Edge* edges = static_cast<Edge*>(data);
+        //     this->data = edges;
+        // }
+        this->data = data;
     }
 
-List::~List() {}
+List::~List() {
+    if (this->type == INT) {
+        int* ints = static_cast<int*>(data);
+        delete[] ints;
+    }
+}
 
 int List::getSize() {
     return size;

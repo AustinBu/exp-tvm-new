@@ -93,10 +93,12 @@ class Model:
         return graph
     
     def pattern_find(self, graph, pattern):
-        return exp.pattern_find(
+        list = exp.pattern_find(
             graph, 
             self.handleInts(pattern),
             len(pattern))
+        self.lists.append(list)
+        return list
 
     def del_attrs(self, attrs):
         exp.del_attrs(debug, attrs)

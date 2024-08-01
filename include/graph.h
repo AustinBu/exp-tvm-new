@@ -23,7 +23,7 @@ private:
 extern "C" {
     Graph* new_graph(List* e);
 
-    int* pattern_find(Graph* g, int* pattern, int patternsize);
+    List* pattern_find(Graph* g, int* pattern, int patternsize);
 
     void del_graph(bool debug, Graph* graph);
 }
