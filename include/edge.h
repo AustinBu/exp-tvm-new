@@ -4,6 +4,8 @@
 #include <iostream>
 #include "node.h"
 
+class Node;
+
 class Edge {
 public:
     Edge();
