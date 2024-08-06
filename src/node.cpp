@@ -1,24 +1,26 @@
+#include <iostream>
+
 #include "../include/node.h"
 #include "../include/attrs.h"
-#include <iostream>
+
 
 int Node::nextId = 1;
 
-Node::Node() : id(generateId()) {}
+Node::Node() {}
 
 Node::Node(int opcode) : id(generateId()), opcode(OPCODE(opcode)) {}
 
 Node::Node(const Node& source) : id(source.id), opcode(OPCODE(0))
 {
-    if (source.opcode == 5)
+    if (source.opcode != 0)
     {
-        opcode = OPCODE(6);
+        opcode = OPCODE(source.opcode);
     }
 }
 
 Node::~Node() {}
 
-int Node::getId() const { return id; }
+int Node::getId() const { return this->id; }
 
 Node::Node(int opcode, List* in_attrs)
     : id(generateId()), opcode(OPCODE(opcode)) {
@@ -26,7 +28,7 @@ Node::Node(int opcode, List* in_attrs)
         this->attrs = in_attrs;
 }
 
-int Node::getOpcode() const { return opcode; }
+int Node::getOpcode() const { return this->opcode; }
 
 void Node::setOpcode(int newOpcode) {
     opcode = OPCODE(newOpcode);
@@ -39,9 +41,7 @@ int Node::generateId() {
 Node* new_node_from_opcode(int opcode) { return new Node(opcode); }
 
 void node_from_node(Node* source) {
-    if (source->getOpcode() == 5) {
-        source->setOpcode(6);
-    }
+    // todo: supposed to return a new node pointer?
 }
 
 int get_id(Node* obj) { return obj->getId(); }

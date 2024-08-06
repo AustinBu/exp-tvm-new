@@ -1,24 +1,38 @@
 #include "../include/list.h"
 #include "../include/attrs.h"
+#include "../include/edge.h"
 
 List::List() {}
 
 List::List(void* data, int size, int type)
-    : size(size), type(LISTTYPE(type)) {
-        if (type == 0) {
-            Attrs* attr = static_cast<Attrs*>(data);
-            this->data = attr;
-        }
+    : size(size), type(DATATYPE(type)) {
+        // if (this->type == ATTRS) {
+        //     Attrs* attrs = static_cast<Attrs*>(data);
+        //     this->data = attrs;
+        // } else if (this->type == EDGE) {
+        //     Edge* edges = static_cast<Edge*>(data);
+        //     this->data = edges;
+        // }
+        this->data = data;
     }
 
-List::~List() {}
+List::~List() {
+    if (this->type == INT) {
+        int* ints = static_cast<int*>(data);
+        delete[] ints;
+    }
+}
 
-const int List::getSize() const {
+int List::getSize() {
     return size;
 }
 
-const Attrs* List::getAttr() const {
+Attrs* List::getAttr() {
     return static_cast<Attrs*>(data);
+}
+
+Edge* List::getEdge() {
+    return static_cast<Edge*>(data);
 }
 
 List* new_list(void* data, int size, int type)
