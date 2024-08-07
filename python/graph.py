@@ -21,6 +21,8 @@ class Model:
             # breakpoint()
             if l.contents.opcode == 5:
                 s += "Relu(), "
+            elif l.contents.opcode == 6:
+                s += "Clip(), "
             elif l.contents.opcode == 1:
                 s += "Conv(), "
         s += "]"
@@ -99,6 +101,19 @@ class Model:
             len(pattern))
         self.lists.append(list)
         return list
+    
+    def delete_edge(self, edge):
+        self.edges.remove(edge)
+        self.del_edge(edge)
+        start = edge[0].start[0].id
+        end = edge[0].end[0].id
+        res = [0] * 2
+        for i in range(len(self.edges)):
+            if self.edges[i][0].end[0].id == start:
+                res[0] = self.edges[i][0].id
+            if self.edges[i][0].start[0].id == end:
+                res[1] = self.edges[i][0].id
+        return res
 
     def del_attrs(self, attrs):
         exp.del_attrs(debug, attrs)
@@ -107,6 +122,7 @@ class Model:
         exp.del_node(debug, node)
 
     def del_edge(self, edge):
+        # print(edge.getStartOp())
         exp.del_edge(debug, edge)
 
     def del_list(self, list):

@@ -12,6 +12,9 @@ print(c.opcode)
 
 e = m.new_edge(r, c)[0]
 print(m.get_edge(e))
+
+# breakpoint()
+# m.del_edge(e)
 nodeList = []
 
 for i in range(1):
@@ -50,6 +53,7 @@ for i in range(1):
         print(nodeList[1].getData()[i].ints[0])
     else:
         print(nodeList[1].getData()[i].i)
+breakpoint()
 
 # x = n.contents.attrs.contents
 # print(x.name.decode('utf-8'))
