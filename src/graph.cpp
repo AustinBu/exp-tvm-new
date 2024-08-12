@@ -21,22 +21,24 @@ List* Graph::getEdgeList() {
 }
 
 List* pattern_find(Graph* g, int* pattern, int patternsize) {
-    std::vector<int> returnEdges;
+    std::vector<Edge> returnEdges;
     Edge* edges = g->getEdgeList()->getEdge();
 
     for (int i = 0; i < g->getEdgeList()->getSize(); i++) {
         if (edges[i].getStart()->getOpcode() == pattern[0]) {
             if (edges[i].getEnd()->getOpcode() == pattern[1]) {
-                returnEdges.push_back(edges[i].getId());
+                returnEdges.push_back(edges[i]);
             }
         }
     }
 
-    int* arr = new int(returnEdges.size());
-    std::memcpy(arr, returnEdges.data(), returnEdges.size() * sizeof(int));
+    Edge* arr = new Edge[returnEdges.size()];
+    for (std::size_t i = 0; i < returnEdges.size(); ++i) {
+        arr[i] = returnEdges[i];
+    }
     void* void_ptr = static_cast<void*>(arr);
 
-    return new List(void_ptr, returnEdges.size(), INT);
+    return new List(void_ptr, returnEdges.size(), EDGE);
 }
 
 void del_graph(bool debug, Graph* graph) {

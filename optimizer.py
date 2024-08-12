@@ -24,20 +24,20 @@ for node in nodes:
 
 graph = model.new_graph(edges)[0]
 pattern = [7, 8]
-ids = model.pattern_find(graph, pattern)[0]
-for i in range(ids.size):
-    id = ids.getData()[i]
+pattern_edges = model.pattern_find(graph, pattern)[0]
+for i in range(pattern_edges.size):
+    edge = pattern_edges.getData()[i]
+    id = edge.id
 
     index = model.get_edge_by_id(id)[0]
     
     val1 = edges[index-1].start[0].getData()[1].ints[0]
     val2 = edges[index+1].start[0].getData()[1].ints[0]
-    res = [edges[index].getStartId(), edges[index].getEndId()]
+    res = [edge.getStartId(), edge.getEndId()]
 
     for _ in range(2):
         res = model.delete_edge(model.edges[index-1])
         del edges[index-1]
-    print(res)
 
     if val1 == val2:
         if not 0 in res:
