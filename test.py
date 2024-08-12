@@ -53,7 +53,6 @@ for i in range(1):
         print(nodeList[1].getData()[i].ints[0])
     else:
         print(nodeList[1].getData()[i].i)
-breakpoint()
 
 # x = n.contents.attrs.contents
 # print(x.name.decode('utf-8'))

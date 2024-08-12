@@ -17,7 +17,8 @@ typedef enum{
     GLOBALAVERAGEPOOL,
     RELU,
     CLIP, 
-    ADD
+    ADD,
+    SUB
 } OPCODE;
 
 class Node {

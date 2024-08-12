@@ -1,0 +1,22 @@
+
+non-zero-model:œ
+)
+input
+oneoutput_sub1	/sub1/Sub"Sub
+/
+output_sub1
+oneoutput_add1	/add1/Add"Add
+/
+output_add1
+twooutput_sub2	/sub2/Sub"Sub
+0
+output_sub2
+oneoutput_final	/add2/Add"Addnon-zero-graph**Bone**BtwoZ
+input
+
+
+b
+output_final
+
+
+B

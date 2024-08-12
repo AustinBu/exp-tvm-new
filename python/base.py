@@ -40,8 +40,12 @@ class Edge(Structure):
                 ("id", c_int)]
     def getStartOp(self):
         return self.start[0].opcode
+    def getStartId(self):
+        return self.start[0].id
     def getEndOp(self):
         return self.end[0].opcode
+    def getEndId(self):
+        return self.end[0].id
 
 class Graph(Structure):
     _fields_ = [("edges", POINTER(List))]
@@ -58,6 +62,8 @@ exp.new_edge.argtypes = [POINTER(Node), POINTER(Node)]
 exp.new_edge.restype = POINTER(Edge)
 exp.edge_get_id.argtypes = [POINTER(Edge)]
 exp.edge_get_id.restype = c_int
+exp.set_start.argtypes = [POINTER(Edge), POINTER(Node)]
+exp.set_end.argtypes = [POINTER(Edge), POINTER(Node)]
 
 exp.get_opcode.argtypes = [POINTER(Node)]
 exp.get_opcode.restype = c_int

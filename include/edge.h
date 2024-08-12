@@ -15,8 +15,12 @@ public:
     ~Edge();
     
     Node* getStart() const;
+
+    void setStart(Node* start);
     
     Node* getEnd() const;
+
+    void setEnd(Node* end);
 
     int getId() const;
 
@@ -33,6 +37,10 @@ extern "C" {
     void del_edge(bool debug, Edge* edge);
 
     int edge_get_id(Edge* edge); 
+
+    void set_start(Edge* edge, Node* start);
+
+    void set_end(Edge* edge, Node* end);
 }
 
 #endif // EDGE_H

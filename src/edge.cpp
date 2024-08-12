@@ -15,8 +15,16 @@ Node* Edge::getStart() const {
     return start;
 }
 
+void Edge::setStart(Node* start) {
+    this->start = start;
+}
+
 Node* Edge::getEnd() const {
     return end;
+}
+
+void Edge::setEnd(Node* end) {
+    this->end = end;
 }
 
 int Edge::getId() const {
@@ -31,3 +39,11 @@ void del_edge(bool debug, Edge* edge) {
 }
 
 int edge_get_id(Edge* edge) { return edge->getId(); }
+
+void set_start(Edge* edge, Node* start) {
+    edge->setStart(start);
+}
+
+void set_end(Edge* edge, Node* end) {
+    edge->setEnd(end);
+}

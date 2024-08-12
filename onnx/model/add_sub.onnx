@@ -1,0 +1,22 @@
+
+add-sub-model:
+)
+input
+oneoutput_sub1	/sub1/Sub"Sub
+/
+output_sub1
+oneoutput_add1	/add1/Add"Add
+/
+output_add1
+oneoutput_sub2	/sub2/Sub"Sub
+0
+output_sub2
+oneoutput_final	/add2/Add"Addadd_sub_graph**BoneZ
+input
+
+
+b
+output_final
+
+
+B

@@ -8,19 +8,11 @@ opmap = {
     4: "GlobalAveragePool",
     5: "Relu",
     6: "Clip", 
-    7: "Add"
+    7: "Add",
+    8: "Sub"
 }
 
-opcodemap = {
-    "Initializer": 0,
-    "Conv": 1, 
-    "BatchNormalization": 2,
-    "MaxPool": 3,
-    "GlobalAveragePool": 4,
-    "Relu": 5,
-    "Clip": 6, 
-    "Add": 7
-}
+opcodemap = {value: key for key, value in opmap.items()}
 
 # attr_to_int_map = {
 #     Attrs: 1,

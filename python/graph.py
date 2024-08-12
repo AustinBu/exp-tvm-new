@@ -4,7 +4,7 @@ from ctypes import *
 import atexit
 
 map = opmap
-debug = True
+debug = False
 
 class Model:
     def __init__(self):
@@ -103,17 +103,29 @@ class Model:
         return list
     
     def delete_edge(self, edge):
+        start = edge[0].getStartId()
+        end = edge[0].getEndId()
+        res = [0] * 2
         self.edges.remove(edge)
         self.del_edge(edge)
-        start = edge[0].start[0].id
-        end = edge[0].end[0].id
-        res = [0] * 2
         for i in range(len(self.edges)):
-            if self.edges[i][0].end[0].id == start:
-                res[0] = self.edges[i][0].id
-            if self.edges[i][0].start[0].id == end:
-                res[1] = self.edges[i][0].id
+            if self.edges[i][0].getEndId() == start:
+                if self.edges[i][0].getStartOp() != 0:
+                    res[0] = self.edges[i][0]
+            if self.edges[i][0].getStartId() == end:
+                res[1] = self.edges[i][0]
         return res
+    
+    def set_start(self, edge, node):
+        exp.set_start(edge, node)
+
+    def set_end(self, edge, node):
+        exp.set_end(edge, node)
+
+    def get_edge_by_id(self, id):
+        for i in range(len(self.edges)):
+            if self.edges[i][0].id == id:
+                return i, self.edges[i]
 
     def del_attrs(self, attrs):
         exp.del_attrs(debug, attrs)

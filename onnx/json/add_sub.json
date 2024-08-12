@@ -1,0 +1,104 @@
+{
+    "irVersion": "10",
+    "producerName": "add-sub-model",
+    "graph": {
+        "node": [
+            {
+                "input": [
+                    "input",
+                    "one"
+                ],
+                "output": [
+                    "output_sub1"
+                ],
+                "name": "/sub1/Sub",
+                "opType": "Sub"
+            },
+            {
+                "input": [
+                    "output_sub1",
+                    "one"
+                ],
+                "output": [
+                    "output_add1"
+                ],
+                "name": "/add1/Add",
+                "opType": "Add"
+            },
+            {
+                "input": [
+                    "output_add1",
+                    "one"
+                ],
+                "output": [
+                    "output_sub2"
+                ],
+                "name": "/sub2/Sub",
+                "opType": "Sub"
+            },
+            {
+                "input": [
+                    "output_sub2",
+                    "one"
+                ],
+                "output": [
+                    "output_final"
+                ],
+                "name": "/add2/Add",
+                "opType": "Add"
+            }
+        ],
+        "name": "add_sub_graph",
+        "initializer": [
+            {
+                "dims": [
+                    "1"
+                ],
+                "dataType": 6,
+                "int32Data": [
+                    1
+                ],
+                "name": "one"
+            }
+        ],
+        "input": [
+            {
+                "name": "input",
+                "type": {
+                    "tensorType": {
+                        "elemType": 1,
+                        "shape": {
+                            "dim": [
+                                {
+                                    "dimValue": "1"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ],
+        "output": [
+            {
+                "name": "output_final",
+                "type": {
+                    "tensorType": {
+                        "elemType": 1,
+                        "shape": {
+                            "dim": [
+                                {
+                                    "dimValue": "1"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "opsetImport": [
+        {
+            "version": "21"
+        }
+    ]
+}
