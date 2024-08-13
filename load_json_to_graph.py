@@ -1,4 +1,3 @@
-import json 
 from python.base import Attrs
 from python.graph import Model
 from python.maps import *

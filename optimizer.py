@@ -1,4 +1,6 @@
 from load_json_to_graph import *
+from load_graph_to_json import *
+import json
 
 def print_edges(edges):
     for edge in edges:
@@ -23,7 +25,7 @@ for node in nodes:
         initializer_list.append(node)
 
 graph = model.new_graph(edges)[0]
-pattern = [7, 8]
+pattern = [8, 7]
 pattern_edges = model.pattern_find(graph, pattern)[0]
 for i in range(pattern_edges.size):
     edge = pattern_edges.getData()[i]
@@ -69,11 +71,11 @@ for i in range(pattern_edges.size):
             model.delete_edge(model.get_edge_by_id(id)[1])
             del edges[index]
 
-        
-
     print()
     print("Graph: ")
     print_edges(edges)
+
+print(model_to_json("add_sub_graph", edges, data))
 
 # breakpoint()
 
