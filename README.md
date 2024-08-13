@@ -8,3 +8,5 @@ include/ -> header files
 src/ -> cpp files
 onnx -> onnx/json models for testing
 python/ -> core functionality in python
+
+By Elliu Huang and Austin Bu
