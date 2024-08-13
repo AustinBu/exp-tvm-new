@@ -1,3 +1,5 @@
+# Model which includes all the functions, wrapper for easier coding
+
 from python.base import *
 from python.maps import *
 from ctypes import *

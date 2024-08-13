@@ -1,3 +1,5 @@
+# Maps for certain hardcoded values
+
 from python.base import *
 
 opmap = {

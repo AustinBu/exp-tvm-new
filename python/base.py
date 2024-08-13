@@ -1,3 +1,7 @@
+# Ctypes is used here mainly as an object library
+# Custom fields and methods can be created, as long as they correspond to a C type
+# Set method argtype/restype according to your externs in src/
+
 from ctypes import *
 
 exp = cdll.LoadLibrary('./exp.so')
