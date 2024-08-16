@@ -51,8 +51,8 @@ public:
     }
 
 private:
-    static int nextId;
-    int id;
+    static int nextId; // auto gen
+    int id; // auto gen
     OPCODE opcode;
     List* attrs;
 

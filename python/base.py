@@ -6,6 +6,7 @@ from ctypes import *
 
 exp = cdll.LoadLibrary('./exp.so')
 
+# List is void_p so it can be any type, casted upon access
 class List(Structure):
     _fields_ = [("data", c_void_p),
                 ("size", c_int),
@@ -18,6 +19,7 @@ class List(Structure):
         if self.type == 6:
             return cast(self.data, POINTER(Edge))
 
+# ideally ints/ints_size/i is a List, didn't have time to change it
 class Attrs(Structure):
     _fields_ = [("name", c_char_p),
                 ("type", c_int),
