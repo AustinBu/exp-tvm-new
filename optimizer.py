@@ -13,7 +13,9 @@ def create_dummy_node(opcode):
     attr_arr = abc(*([]))
 
     list_attr = model.new_list(attr_arr, len([]), 4)
-    nodes.append(model.new_node_from_all(opcode, list_attr)[0])
+    n = model.new_node_from_all(opcode, list_attr)[0]
+    nodes.append(n)
+    return n
 
 f = open('./onnx/json/non-zero.json')
 data = json.load(f)
@@ -23,7 +25,6 @@ initializer_list = []
 for node in nodes:
     if node.opcode == 0:
         initializer_list.append(node)
-
 graph = model.new_graph(edges)[0]
 pattern = [8, 7]
 pattern_edges = model.pattern_find(graph, pattern)[0]
@@ -50,18 +51,21 @@ for i in range(pattern_edges.size):
                 del edges[index-1]
     else:
         val = 0
-        if val1 > val2:
-            create_dummy_node(7)
-            val = val1 - val2
+        dummy_node = 0
+        val = val1 - val2
+        if edge.getStartOp() == 8 and edge.getEndOp() == 7:
+            val = 0-val
+        if val > 0:
+            dummy_node = create_dummy_node(7)
         else:
-            create_dummy_node(8)
-            val = val2 - val1
+            dummy_node = create_dummy_node(8)
+            val = 0-val
 
         for node in initializer_list:
             if node.getData()[1].ints[0] == val:
-                e = model.new_edge(node, nodes[-1])
+                e = model.new_edge(node, dummy_node)
                 edges.insert(index-1, e[0])
-        
+
         if not 0 in res:
             model.set_end(res[0], nodes[-1])
             model.set_start(res[1], nodes[-1])
